@@ -48,8 +48,21 @@ pce-economic-report/
 ├── analyze_pce.py        # Compute metrics and generate 8 charts
 ├── requirements.txt      # Python dependencies
 ├── .gitignore            # Excludes data/ and output/ (regenerable)
-└── README.md
+├── README.md
+└── tests/                # Automated test suite
+    ├── conftest.py       # Shared fixtures (synthetic FRED data)
+    ├── test_download_data.py
+    └── test_analyze_pce.py
 ```
+
+## Running Tests
+
+```bash
+pip install -r requirements.txt   # includes pytest
+pytest -v
+```
+
+Tests use synthetic data and mocked network calls — no FRED access required.
 
 ## Generated Charts
 
