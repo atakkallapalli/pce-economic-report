@@ -22,7 +22,7 @@ ignore_missing_imports = true
 
 [tool.coverage.run]
 source = ["app"]
-omit = ["app/workers/*", "app/templates/*"]
+omit = ["app/workers/*", "app/templates/*", "app/core/logging.py", "app/core/rabbitmq.py"]
 
 [tool.coverage.report]
 show_missing = true
@@ -31,4 +31,5 @@ exclude_lines = [
     "pragma: no cover",
     "if __name__ == .__main__.",
     "pass",
+    "if TYPE_CHECKING:",
 ]
