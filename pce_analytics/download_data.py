@@ -13,7 +13,7 @@ Downloads the following series as CSV files into the data/ directory:
 No API key required -- uses FRED's public CSV download endpoint.
 
 Usage:
-    python download_data.py
+    python pce_analytics/download_data.py
 """
 
 import os
@@ -66,7 +66,8 @@ def download_series(series_id: str, output_dir: str) -> str:
 def main() -> None:
     """Download all PCE-related FRED series."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_dir = os.path.join(script_dir, "data")
+    project_dir = os.path.dirname(script_dir)
+    output_dir = os.path.join(project_dir, "data")
     os.makedirs(output_dir, exist_ok=True)
 
     print(f"Downloading {len(SERIES)} FRED series to {output_dir}/\n")
