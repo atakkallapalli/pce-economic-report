@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from sqlalchemy import text
 
 from app.core.config import settings
 from app.core.database import engine
@@ -20,7 +21,7 @@ async def health_check():
     db_status = "healthy"
     try:
         async with engine.connect() as conn:
-            await conn.execute(conn.default_dialect.do_ping)
+            await conn.execute(text("SELECT 1"))
     except Exception:
         db_status = "unhealthy"
 
