@@ -65,14 +65,13 @@ class TaskService:
         )
 
         if data.assignee_id:
-            assignee_user = await self.user_repo.get_by_id(data.assignee_id)
             await publish_notification(
                 "task_assigned",
                 {
                     "task_id": str(task.id),
                     "task_title": task.title,
                     "assignee_id": str(data.assignee_id),
-                    "assignee_email": assignee_user.email if assignee_user else "",
+                    "assignee_email": assignee.email if assignee else "",
                     "assigned_by": current_user.full_name,
                 },
             )
