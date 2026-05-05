@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #7c3aed; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+        .content { background: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; }
+        .footer { background: #f3f4f6; padding: 15px; text-align: center; font-size: 12px; color: #6b7280; border-radius: 0 0 8px 8px; }
+        .status { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .arrow { margin: 0 8px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Task Status Changed</h2>
+        </div>
+        <div class="content">
+            <h3>{{ task_title }}</h3>
+            <p><strong>Task ID:</strong> {{ task_id }}</p>
+            <p>
+                <strong>Status:</strong>
+                <span class="status">{{ old_status }}</span>
+                <span class="arrow">&rarr;</span>
+                <span class="status">{{ new_status }}</span>
+            </p>
+            <p><strong>Changed by:</strong> {{ changed_by }}</p>
+        </div>
+        <div class="footer">
+            <p>Task Management System - Automated Notification</p>
+        </div>
+    </div>
+</body>
+</html>

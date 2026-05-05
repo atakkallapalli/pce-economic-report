@@ -15,26 +15,51 @@ etl_pipeline/output/
 
 # Python
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
+*.so
 *.egg-info/
 dist/
 build/
-.eggs/
 *.egg
 
-# Virtual environments
-.venv/
+# Virtual environment
 venv/
+.venv/
 env/
 
 # IDE
-.idea/
 .vscode/
+.idea/
 *.swp
 *.swo
-*~
+
+# Environment
+.env
+.env.local
+
+# Testing
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Database
+*.db
+*.sqlite3
+
+# Docker
+docker-compose.override.yml
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Alembic
+alembic/versions/__pycache__/
