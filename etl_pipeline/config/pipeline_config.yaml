@@ -1,0 +1,52 @@
+# ETL Pipeline Configuration
+# NYC Yellow Taxi Trip Records - Medallion Architecture
+
+source:
+  # NYC TLC Trip Record Data (Parquet format)
+  # https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+  base_url: "https://d37ci6vzurychx.cloudfront.net/trip-data"
+  dataset: "yellow_tripdata"
+  # Months to ingest (YYYY-MM format)
+  months:
+    - "2024-01"
+    - "2024-02"
+    - "2024-03"
+
+spark:
+  app_name: "NYC_Taxi_ETL_Pipeline"
+  master: "local[*]"
+  config:
+    spark.sql.extensions: "io.delta.sql.DeltaSparkSessionExtension"
+    spark.sql.catalog.spark_catalog: "org.apache.spark.sql.delta.catalog.DeltaCatalog"
+    spark.sql.warehouse.dir: "./warehouse"
+    spark.driver.memory: "4g"
+    spark.executor.memory: "4g"
+
+storage:
+  # Base path for the data lakehouse
+  lakehouse_root: "./lakehouse"
+  bronze_path: "./lakehouse/bronze/nyc_taxi"
+  silver_path: "./lakehouse/silver/nyc_taxi_cleaned"
+  gold_path: "./lakehouse/gold"
+  raw_download_dir: "./raw_data"
+
+hive:
+  database: "nyc_taxi_analytics"
+  tables:
+    bronze: "yellow_taxi_raw"
+    silver: "yellow_taxi_cleaned"
+    gold_trip_summary: "trip_summary_daily"
+    gold_zone_metrics: "zone_performance"
+    gold_hourly_demand: "hourly_demand"
+    gold_fare_analysis: "fare_analysis"
+
+quality:
+  # Data quality thresholds
+  max_null_pct: 0.10
+  min_fare_amount: 0.0
+  max_fare_amount: 1000.0
+  min_trip_distance: 0.0
+  max_trip_distance: 200.0
+  min_passenger_count: 0
+  max_passenger_count: 9
+  max_trip_duration_hours: 24.0
