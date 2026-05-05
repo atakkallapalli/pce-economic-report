@@ -65,12 +65,14 @@ class TaskService:
         )
 
         if data.assignee_id:
+            assignee_user = await self.user_repo.get_by_id(data.assignee_id)
             await publish_notification(
                 "task_assigned",
                 {
                     "task_id": str(task.id),
                     "task_title": task.title,
                     "assignee_id": str(data.assignee_id),
+                    "assignee_email": assignee_user.email if assignee_user else "",
                     "assigned_by": current_user.full_name,
                 },
             )
@@ -218,6 +220,7 @@ class TaskService:
                 "task_id": str(task.id),
                 "task_title": task.title,
                 "assignee_id": str(data.assignee_id),
+                "assignee_email": assignee.email,
                 "assigned_by": current_user.full_name,
             },
         )
@@ -272,6 +275,7 @@ class TaskService:
                 "task_title": task.title,
                 "old_assignee_id": str(old_assignee_id) if old_assignee_id else None,
                 "new_assignee_id": str(data.assignee_id),
+                "assignee_email": assignee.email,
                 "reassigned_by": current_user.full_name,
             },
         )
@@ -316,6 +320,8 @@ class TaskService:
             )
         )
 
+        creator = await self.user_repo.get_by_id(task.creator_id)
+        assignee = await self.user_repo.get_by_id(task.assignee_id) if task.assignee_id else None
         await publish_notification(
             "status_changed",
             {
@@ -325,7 +331,9 @@ class TaskService:
                 "new_status": data.status.value,
                 "changed_by": current_user.full_name,
                 "creator_id": str(task.creator_id),
+                "creator_email": creator.email if creator else "",
                 "assignee_id": str(task.assignee_id) if task.assignee_id else None,
+                "assignee_email": assignee.email if assignee else "",
             },
         )
 
