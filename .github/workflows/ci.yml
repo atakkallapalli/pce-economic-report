@@ -26,19 +26,23 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r task-management-api/requirements.txt
           pip install aiosqlite email-validator
 
       - name: Run Black
+        working-directory: task-management-api
         run: black --check --diff app/ tests/
 
       - name: Run isort
+        working-directory: task-management-api
         run: isort --check-only --diff app/ tests/
 
       - name: Run flake8
+        working-directory: task-management-api
         run: flake8 app/ tests/ --max-line-length=100 --ignore=E501,W503
 
       - name: Run mypy
+        working-directory: task-management-api
         run: mypy app/ --ignore-missing-imports
 
   test:
@@ -56,10 +60,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r task-management-api/requirements.txt
           pip install aiosqlite email-validator
 
       - name: Run tests with coverage
+        working-directory: task-management-api
         run: |
           pytest tests/ --ignore=tests/load \
             --cov=app --cov-report=xml --cov-report=term-missing \
@@ -71,14 +76,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: coverage.xml
+          path: task-management-api/coverage.xml
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: test-results.xml
+          path: task-management-api/test-results.xml
 
   build:
     name: Build Docker Images
@@ -104,8 +109,8 @@ jobs:
       - name: Build and push API image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./task-management-api
+          file: ./task-management-api/Dockerfile
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/api:latest
@@ -116,8 +121,8 @@ jobs:
       - name: Build and push Worker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile.worker
+          context: ./task-management-api
+          file: ./task-management-api/Dockerfile.worker
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/worker:latest

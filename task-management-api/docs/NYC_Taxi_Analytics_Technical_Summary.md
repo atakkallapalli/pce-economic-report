@@ -408,8 +408,8 @@ flowchart LR
 
 ### Extract (Bronze Layer)
 
-**Source:** NYC TLC Trip Record Data - Yellow Taxi  
-**Format:** Apache Parquet  
+**Source:** NYC TLC Trip Record Data - Yellow Taxi
+**Format:** Apache Parquet
 **Endpoint:** `https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{YYYY-MM}.parquet`
 
 **Files Processed:**

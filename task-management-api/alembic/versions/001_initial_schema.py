@@ -4,10 +4,11 @@ Revision ID: 001
 Revises:
 Create Date: 2026-04-27
 """
+
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 
 revision: str = "001"
 down_revision: Union[str, None] = None
@@ -85,12 +86,30 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(["creator_id"], ["users.id"]),
         sa.ForeignKeyConstraint(["assignee_id"], ["users.id"]),
     )
-    op.create_index("idx_tasks_status", "tasks", ["status"], postgresql_where=sa.text("deleted_at IS NULL"))
-    op.create_index("idx_tasks_priority", "tasks", ["priority"], postgresql_where=sa.text("deleted_at IS NULL"))
-    op.create_index("idx_tasks_assignee", "tasks", ["assignee_id"], postgresql_where=sa.text("deleted_at IS NULL"))
-    op.create_index("idx_tasks_creator", "tasks", ["creator_id"], postgresql_where=sa.text("deleted_at IS NULL"))
-    op.create_index("idx_tasks_due_date", "tasks", ["due_date"], postgresql_where=sa.text("deleted_at IS NULL"))
-    op.create_index("idx_tasks_created_at", "tasks", [sa.text("created_at DESC")], postgresql_where=sa.text("deleted_at IS NULL"))
+    op.create_index(
+        "idx_tasks_status", "tasks", ["status"], postgresql_where=sa.text("deleted_at IS NULL")
+    )
+    op.create_index(
+        "idx_tasks_priority", "tasks", ["priority"], postgresql_where=sa.text("deleted_at IS NULL")
+    )
+    op.create_index(
+        "idx_tasks_assignee",
+        "tasks",
+        ["assignee_id"],
+        postgresql_where=sa.text("deleted_at IS NULL"),
+    )
+    op.create_index(
+        "idx_tasks_creator", "tasks", ["creator_id"], postgresql_where=sa.text("deleted_at IS NULL")
+    )
+    op.create_index(
+        "idx_tasks_due_date", "tasks", ["due_date"], postgresql_where=sa.text("deleted_at IS NULL")
+    )
+    op.create_index(
+        "idx_tasks_created_at",
+        "tasks",
+        [sa.text("created_at DESC")],
+        postgresql_where=sa.text("deleted_at IS NULL"),
+    )
 
     op.create_table(
         "task_history",
@@ -136,8 +155,15 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(["task_id"], ["tasks.id"]),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"]),
     )
-    op.create_index("idx_comments_task", "comments", ["task_id", "created_at"], postgresql_where=sa.text("deleted_at IS NULL"))
-    op.create_index("idx_comments_user", "comments", ["user_id"], postgresql_where=sa.text("deleted_at IS NULL"))
+    op.create_index(
+        "idx_comments_task",
+        "comments",
+        ["task_id", "created_at"],
+        postgresql_where=sa.text("deleted_at IS NULL"),
+    )
+    op.create_index(
+        "idx_comments_user", "comments", ["user_id"], postgresql_where=sa.text("deleted_at IS NULL")
+    )
 
 
 def downgrade() -> None:

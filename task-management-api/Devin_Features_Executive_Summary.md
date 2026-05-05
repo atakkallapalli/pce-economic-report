@@ -1,7 +1,7 @@
 # Executive Summary: Exploration of Devin AI Features
 
-**Prepared for:** Anitha Thatiparthi  
-**Date:** April 27, 2026  
+**Prepared for:** Anitha Thatiparthi
+**Date:** April 27, 2026
 **Evaluation Period:** April 2026
 
 ---
@@ -16,7 +16,7 @@ This document summarizes the comprehensive exploration of Devin AI's capabilitie
 
 ### 2.1 End-to-End SDLC Execution (Flagship Evaluation)
 
-**Session:** [Execute SDLC scenario](https://frb.devinenterprise.com/sessions/17d9f77dc1ab4acc9a3f038fafe5d175)  
+**Session:** [Execute SDLC scenario](https://frb.devinenterprise.com/sessions/17d9f77dc1ab4acc9a3f038fafe5d175)
 **PR:** [Task Management API](https://github.com/atakkallapalli/pce-economic-report/pull/2)
 
 Devin was tasked with autonomously building a production-grade Task Management API through all 6 SDLC phases:
@@ -61,7 +61,7 @@ Demonstrated Devin's **child session orchestration** — a parent session spawne
 
 ### 2.3 Data Engineering & Visualization
 
-**Session:** [Economic report on PCE data](https://frb.devinenterprise.com/sessions/d13b525dc4924105887941577a164170)  
+**Session:** [Economic report on PCE data](https://frb.devinenterprise.com/sessions/d13b525dc4924105887941577a164170)
 **PR:** [Merged to pce-economic-report](https://github.com/atakkallapalli/pce-economic-report/pull/1)
 
 Devin built an automated pipeline for retrieving, transforming, and visualizing Personal Consumption Expenditures (PCE) data from FRED — demonstrating:
