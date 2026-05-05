@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 
 import pytest  # noqa: F401
+
 from app.models.task import VALID_TRANSITIONS, Task, TaskPriority, TaskStatus
 from app.models.user import User, UserRole
 

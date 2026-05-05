@@ -1,10 +1,11 @@
 import uuid
 
 import pytest
+from pydantic import ValidationError
+
 from app.schemas.comment import CommentCreateRequest
 from app.schemas.task import TaskCreateRequest, TaskListParams, TaskSearchParams, TaskUpdateRequest
 from app.schemas.user import UserRegisterRequest
-from pydantic import ValidationError
 
 
 class TestUserRegisterRequest:

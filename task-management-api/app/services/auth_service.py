@@ -1,5 +1,8 @@
 import uuid
 
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.logging import get_logger
 from app.core.security import (
     create_access_token,
@@ -11,8 +14,6 @@ from app.core.security import (
 from app.models.user import User, UserRole
 from app.repositories.user_repo import UserRepository
 from app.schemas.user import TokenResponse, UserLoginRequest, UserRegisterRequest, UserResponse
-from fastapi import HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = get_logger(__name__)
 

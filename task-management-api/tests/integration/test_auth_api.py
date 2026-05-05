@@ -1,5 +1,6 @@
 import pytest  # noqa: F401
 from httpx import AsyncClient
+
 from tests.conftest import make_auth_header
 
 

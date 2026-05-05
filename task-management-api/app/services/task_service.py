@@ -1,6 +1,9 @@
 import json
 import uuid
 
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.logging import get_logger
 from app.core.rabbitmq import publish_notification
 from app.models.task import VALID_TRANSITIONS, Task, TaskStatus
@@ -21,8 +24,6 @@ from app.schemas.task import (
 )
 from app.schemas.task_history import TaskHistoryResponse
 from app.schemas.user import UserBrief
-from fastapi import HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = get_logger(__name__)
 

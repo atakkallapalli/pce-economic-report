@@ -1,9 +1,10 @@
 """Security tests for the Task Management API."""
 
 import pytest  # noqa: F401
+from httpx import AsyncClient
+
 from app.models.task import Task
 from app.models.user import User
-from httpx import AsyncClient
 from tests.conftest import make_auth_header
 
 

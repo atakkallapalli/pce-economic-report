@@ -1,9 +1,10 @@
 import uuid
 from datetime import datetime
 
+from pydantic import BaseModel, field_validator
+
 from app.models.task import TaskPriority, TaskStatus
 from app.schemas.user import UserBrief
-from pydantic import BaseModel, field_validator
 
 
 class TaskCreateRequest(BaseModel):

@@ -1,5 +1,8 @@
 import uuid
 
+from fastapi import APIRouter, Depends, Query
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.database import get_db
 from app.middleware.auth import get_current_user, require_roles
 from app.models.user import User, UserRole
@@ -8,8 +11,6 @@ from app.schemas.common import PaginatedResponse
 from app.schemas.task import TaskListParams, TaskResponse
 from app.schemas.user import UserResponse
 from app.services.task_service import TaskService
-from fastapi import APIRouter, Depends, Query
-from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(prefix="/users", tags=["Users"])
 

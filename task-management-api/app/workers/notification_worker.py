@@ -12,9 +12,10 @@ from email.mime.text import MIMEText
 
 import aio_pika
 import aiosmtplib
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
 from app.core.config import settings
 from app.core.rabbitmq import NOTIFICATION_QUEUE
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

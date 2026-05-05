@@ -1,6 +1,10 @@
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
+
 from app.api.v1 import auth, comments, health, tasks, users
 from app.core.config import settings
 from app.core.logging import setup_logging
@@ -8,9 +12,6 @@ from app.core.rabbitmq import close_rabbitmq
 from app.core.redis import close_redis
 from app.middleware.error_handler import ErrorHandlerMiddleware
 from app.middleware.request_id import RequestIDMiddleware
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from prometheus_fastapi_instrumentator import Instrumentator
 
 
 @asynccontextmanager

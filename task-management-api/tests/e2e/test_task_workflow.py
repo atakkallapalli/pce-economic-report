@@ -1,8 +1,9 @@
 """End-to-end tests for complete task workflows."""
 
 import pytest  # noqa: F401
-from app.models.user import User
 from httpx import AsyncClient
+
+from app.models.user import User
 from tests.conftest import make_auth_header
 
 

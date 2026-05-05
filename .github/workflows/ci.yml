@@ -30,16 +30,20 @@ jobs:
           pip install aiosqlite email-validator
 
       - name: Run Black
-        run: black --check --diff task-management-api/app/ task-management-api/tests/
+        working-directory: task-management-api
+        run: black --check --diff app/ tests/
 
       - name: Run isort
-        run: isort --check-only --diff task-management-api/app/ task-management-api/tests/
+        working-directory: task-management-api
+        run: isort --check-only --diff app/ tests/
 
       - name: Run flake8
-        run: flake8 task-management-api/app/ task-management-api/tests/ --max-line-length=100 --ignore=E501,W503
+        working-directory: task-management-api
+        run: flake8 app/ tests/ --max-line-length=100 --ignore=E501,W503
 
       - name: Run mypy
-        run: mypy task-management-api/app/ --ignore-missing-imports
+        working-directory: task-management-api
+        run: mypy app/ --ignore-missing-imports
 
   test:
     name: Test

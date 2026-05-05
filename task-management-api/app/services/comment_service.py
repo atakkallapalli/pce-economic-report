@@ -1,5 +1,8 @@
 import uuid
 
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.logging import get_logger
 from app.models.comment import Comment
 from app.models.user import User, UserRole
@@ -8,8 +11,6 @@ from app.repositories.task_repo import TaskRepository
 from app.schemas.comment import CommentCreateRequest, CommentResponse
 from app.schemas.common import PaginatedResponse
 from app.schemas.user import UserBrief
-from fastapi import HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = get_logger(__name__)
 

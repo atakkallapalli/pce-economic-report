@@ -6,6 +6,9 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 import pytest_asyncio
+from httpx import ASGITransport, AsyncClient
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+
 from app.core.database import Base, get_db
 from app.core.security import create_access_token, hash_password
 from app.main import app
@@ -13,8 +16,6 @@ from app.models.comment import Comment
 from app.models.task import Task, TaskPriority, TaskStatus
 from app.models.task_history import TaskHistory  # noqa: F401
 from app.models.user import User, UserRole
-from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 TEST_DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 

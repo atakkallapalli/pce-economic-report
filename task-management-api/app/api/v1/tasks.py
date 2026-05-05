@@ -1,5 +1,8 @@
 import uuid
 
+from fastapi import APIRouter, Depends, Query
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.database import get_db
 from app.middleware.auth import get_current_user
 from app.models.task import TaskPriority, TaskStatus
@@ -16,8 +19,6 @@ from app.schemas.task import (
 )
 from app.schemas.task_history import TaskHistoryResponse
 from app.services.task_service import TaskService
-from fastapi import APIRouter, Depends, Query
-from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 

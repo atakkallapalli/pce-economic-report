@@ -2,8 +2,9 @@ import re
 import uuid
 from datetime import datetime
 
-from app.models.user import UserRole
 from pydantic import BaseModel, EmailStr, field_validator
+
+from app.models.user import UserRole
 
 PASSWORD_PATTERN = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$")
 

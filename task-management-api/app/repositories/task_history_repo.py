@@ -1,9 +1,10 @@
 import uuid
 
-from app.models.task_history import TaskHistory
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
+
+from app.models.task_history import TaskHistory
 
 
 class TaskHistoryRepository:

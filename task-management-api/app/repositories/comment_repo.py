@@ -1,10 +1,11 @@
 import uuid
 from datetime import datetime, timezone
 
-from app.models.comment import Comment
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
+
+from app.models.comment import Comment
 
 
 class CommentRepository:

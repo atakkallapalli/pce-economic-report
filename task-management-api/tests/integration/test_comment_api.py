@@ -1,10 +1,11 @@
 import uuid
 
 import pytest  # noqa: F401
+from httpx import AsyncClient
+
 from app.models.comment import Comment
 from app.models.task import Task
 from app.models.user import User
-from httpx import AsyncClient
 from tests.conftest import make_auth_header
 
 

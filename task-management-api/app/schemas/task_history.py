@@ -1,8 +1,9 @@
 import uuid
 from datetime import datetime
 
-from app.schemas.user import UserBrief
 from pydantic import BaseModel
+
+from app.schemas.user import UserBrief
 
 
 class TaskHistoryResponse(BaseModel):

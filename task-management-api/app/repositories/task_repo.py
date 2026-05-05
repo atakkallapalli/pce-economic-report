@@ -1,11 +1,12 @@
 import uuid
 from datetime import datetime, timezone
 
-from app.models.comment import Comment
-from app.models.task import Task, TaskPriority, TaskStatus
 from sqlalchemy import func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
+
+from app.models.comment import Comment
+from app.models.task import Task, TaskPriority, TaskStatus
 
 
 class TaskRepository:
