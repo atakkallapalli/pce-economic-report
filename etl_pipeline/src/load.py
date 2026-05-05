@@ -36,7 +36,7 @@ def build_daily_trip_summary(
             F.percentile_approx("fare_amount", 0.5).alias("median_fare"),
         )
         .withColumn("avg_revenue_per_trip", F.col("total_revenue") / F.col("total_trips"))
-        .withColumn("avg_tip_pct", F.col("total_tips") / F.col("total_fare_revenue") * 100)
+        .withColumn("avg_tip_pct", F.when(F.col("total_fare_revenue") > 0, F.col("total_tips") / F.col("total_fare_revenue") * 100).otherwise(F.lit(0.0)))
         .orderBy("pickup_date")
     )
 
@@ -70,7 +70,7 @@ def build_zone_performance(
             F.sum("total_amount").alias("total_revenue"),
             F.avg("avg_speed_mph").alias("avg_speed"),
         )
-        .withColumn("avg_fare_per_mile", F.col("avg_fare") / F.col("avg_distance"))
+        .withColumn("avg_fare_per_mile", F.when(F.col("avg_distance") > 0, F.col("avg_fare") / F.col("avg_distance")).otherwise(F.lit(0.0)))
         .filter(F.col("trip_count") >= 10)
         .orderBy(F.desc("trip_count"))
     )
