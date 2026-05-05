@@ -1,3 +1,18 @@
+# Data files (re-downloadable from FRED)
+data/
+
+# Generated output
+output/
+
+# ETL pipeline runtime artifacts
+raw_data/
+lakehouse/
+warehouse/
+spark-warehouse/
+metastore_db/
+derby.log
+etl_pipeline/output/
+
 # Python
 __pycache__/
 *.py[cod]
