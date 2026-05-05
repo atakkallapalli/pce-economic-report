@@ -6,8 +6,8 @@ computes inflation metrics at multiple horizons, and produces 8 charts
 in the output/charts/ directory along with a JSON summary of key statistics.
 
 Usage:
-    python download_data.py   # first, fetch data from FRED
-    python analyze_pce.py     # then, run this script
+    python pce_analytics/download_data.py   # first, fetch data from FRED
+    python pce_analytics/analyze_pce.py     # then, run this script
 """
 
 import os
@@ -25,9 +25,10 @@ import numpy as np
 # Paths (relative to this script's directory)
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(SCRIPT_DIR, "data")
-OUTPUT_DIR = os.path.join(SCRIPT_DIR, "output", "charts")
-STATS_PATH = os.path.join(SCRIPT_DIR, "output", "stats.json")
+PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
+DATA_DIR = os.path.join(PROJECT_DIR, "data")
+OUTPUT_DIR = os.path.join(PROJECT_DIR, "output", "charts")
+STATS_PATH = os.path.join(PROJECT_DIR, "output", "stats.json")
 
 # ---------------------------------------------------------------------------
 # Matplotlib defaults
