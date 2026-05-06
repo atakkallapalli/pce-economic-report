@@ -276,7 +276,9 @@ elif page == "🎨 Customize Chart":
         "SRFTSYD": "#c00000",
     }
     series_configs = []
-    cols = st.columns(min(len(selected_series), 4))
+    if not selected_series:
+        st.info("Select at least one series to display.")
+    cols = st.columns(min(len(selected_series), 4)) if selected_series else []
     for i, sid in enumerate(selected_series):
         with cols[i % len(cols)]:
             color = st.color_picker(

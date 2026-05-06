@@ -53,6 +53,10 @@ def export_python_code(
 
     configs_json = json.dumps(series_configs, indent=4)
 
+    # Escape user input to prevent breaking generated script syntax
+    safe_title = title.replace("\\", "\\\\").replace('"', '\\"').replace("'", "\\'")
+    safe_subtitle = subtitle.replace("\\", "\\\\").replace('"', '\\"').replace("'", "\\'")
+
     date_range_str = ""
     if date_range:
         date_range_str = (
@@ -91,8 +95,8 @@ DATA_B64 = """{csv_b64}"""
 # ============================================================================
 # CHART CONFIGURATION
 # ============================================================================
-TITLE = "{title}"
-SUBTITLE = "{subtitle}"
+TITLE = "{safe_title}"
+SUBTITLE = "{safe_subtitle}"
 {date_range_str}
 SERIES_CONFIGS = {configs_json}
 
@@ -219,6 +223,10 @@ def export_r_code(
     # Escape for R heredoc
     csv_escaped = csv_data.replace("\\", "\\\\").replace('"', '\\"')
 
+    # Escape user input to prevent breaking generated script syntax
+    safe_title = title.replace("\\", "\\\\").replace('"', '\\"')
+    safe_subtitle = subtitle.replace("\\", "\\\\").replace('"', '\\"')
+
     series_r_list = []
     for config in series_configs:
         series_r_list.append(
@@ -260,8 +268,8 @@ df$date <- as.Date(df$date)
 # ============================================================================
 # CHART CONFIGURATION
 # ============================================================================
-chart_title <- "{title}"
-chart_subtitle <- "{subtitle}"
+chart_title <- "{safe_title}"
+chart_subtitle <- "{safe_subtitle}"
 
 series_configs <- list(
 {series_r}
