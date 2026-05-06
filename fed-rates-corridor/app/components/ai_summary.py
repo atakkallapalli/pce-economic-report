@@ -67,7 +67,11 @@ def generate_economist_summary(data: dict, title: str = "") -> str:
             f"{corridor['upper']:.2f}%** ({corridor['width_bps']:.0f} bps corridor)"
         )
         if corridor.get("change_1y") is not None:
-            direction = "easing" if corridor["change_1y"] < 0 else "tightening"
+            direction = (
+                "easing"
+                if corridor["change_1y"] < 0
+                else ("tightening" if corridor["change_1y"] > 0 else "unchanged")
+            )
             lines.append(
                 f"- Year-over-year change: **{corridor['change_1y']:+.0f} bps** ({direction})"
             )
@@ -132,7 +136,12 @@ def generate_economist_summary(data: dict, title: str = "") -> str:
             f"from corridor floor (target: ~50–60%)"
         )
         status = "normal" if 30 < pct_in_corridor < 80 else "atypical"
-        lines.append(f"- Corridor functioning: **{status}** — rates well-contained within bounds")
+        qualifier = (
+            "rates well-contained within bounds"
+            if status == "normal"
+            else "rates positioned outside typical range"
+        )
+        lines.append(f"- Corridor functioning: **{status}** — {qualifier}")
         lines.append("- No evidence of rate leakage beyond administered bounds")
     lines.append("")
 

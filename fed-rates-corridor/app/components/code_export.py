@@ -66,7 +66,7 @@ def export_python_code(
 
     script = f'''"""
 Federal Reserve Chart - Generated Export
-Title: {title}
+Title: {safe_title}
 Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 This script is self-contained with embedded data.
@@ -248,7 +248,7 @@ def export_r_code(
 
     script = f"""# ==========================================================================
 # Federal Reserve Chart - Generated R Export
-# Title: {title}
+# Title: {safe_title}
 # Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 #
 # This script is self-contained with embedded data.
