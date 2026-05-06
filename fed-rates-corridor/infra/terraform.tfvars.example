@@ -1,0 +1,26 @@
+# =============================================================================
+# Terraform Variables - Example Configuration
+# Copy this file to terraform.tfvars and customize for your environment
+# =============================================================================
+
+aws_region      = "us-east-1"
+environment     = "dev"
+project_name    = "fed-rates-corridor"
+vpc_cidr        = "10.0.0.0/16"
+
+# Container configuration
+container_image = "123456789012.dkr.ecr.us-east-1.amazonaws.com/fed-rates-corridor:latest"
+container_port  = 8501
+desired_count   = 2
+cpu             = 512
+memory          = 1024
+
+# Bedrock LLM model
+bedrock_model_id = "anthropic.claude-3-haiku-20240307-v1:0"
+
+# Security
+enable_waf          = true
+allowed_cidr_blocks = []  # Empty = open to internet; add CIDRs to restrict
+
+# HTTPS (optional - set to ACM certificate ARN for TLS)
+certificate_arn = ""
