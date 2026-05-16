@@ -139,7 +139,7 @@ call_bedrock <- function(messages, model_id = AI_DEFAULTS$bedrock_model,
     payload_hash
   )
 
-  credential_scope <- paste0(datestamp, "/", region, "/bedrock/aws4_request")
+  credential_scope <- paste0(datestamp, "/", region, "/bedrock-runtime/aws4_request")
   string_to_sign <- paste0(
     "AWS4-HMAC-SHA256\n",
     timestamp, "\n",
@@ -153,7 +153,7 @@ call_bedrock <- function(messages, model_id = AI_DEFAULTS$bedrock_model,
 
   k_date    <- sign_hmac(chartr("", "", paste0("AWS4", secret_key)), datestamp)
   k_region  <- sign_hmac(k_date, region)
-  k_service <- sign_hmac(k_region, "bedrock")
+  k_service <- sign_hmac(k_region, "bedrock-runtime")
   k_signing <- sign_hmac(k_service, "aws4_request")
 
   signature <- digest::hmac(k_signing, string_to_sign, algo = "sha256")
