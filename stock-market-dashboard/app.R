@@ -436,9 +436,9 @@ server <- function(input, output, session) {
   observe({
     cat_info <- STOCK_CATEGORIES[[input$category]]
     tickers <- cat_info$tickers
-    updateSelectInput(session, "ticker_select",
-                      choices = tickers,
-                      selected = tickers)
+    updateCheckboxGroupInput(session, "ticker_select",
+                             choices = tickers,
+                             selected = tickers)
   })
 
   output$ticker_selector <- renderUI({
@@ -510,7 +510,7 @@ server <- function(input, output, session) {
     m <- overview_metrics()
     if (!is.null(m) && nrow(m) > 0) {
       best <- m[which.max(m$TotalReturn), ]
-      valueBox(paste0(best$Ticker, ": +", best$TotalReturn, "%"), "Best Performer",
+      valueBox(paste0(best$Ticker, ": ", ifelse(best$TotalReturn >= 0, "+", ""), best$TotalReturn, "%"), "Best Performer",
                icon = icon("arrow-up"), color = "green")
     } else {
       valueBox("N/A", "Best Performer", icon = icon("arrow-up"), color = "yellow")
