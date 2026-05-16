@@ -21,6 +21,8 @@ library(zoo)
 library(tseries)
 library(shinycssloaders)
 
+source("ai_module.R", local = TRUE)
+
 # ---------------------------------------------------------------------------
 # Stock Universe - Categories
 # ---------------------------------------------------------------------------
@@ -101,8 +103,11 @@ ui <- dashboardPage(
       menuItem("Comparative Analysis", tabName = "comparative", icon = icon("balance-scale")),
       menuItem("Volatility Analysis", tabName = "volatility", icon = icon("bolt")),
       menuItem("Correlation Matrix", tabName = "correlation", icon = icon("th")),
-      menuItem("Forecasting", tabName = "forecast", icon = icon("crystal-ball")),
-      menuItem("Data Explorer", tabName = "data", icon = icon("table"))
+      menuItem("Forecasting", tabName = "forecast", icon = icon("chart-line")),
+      menuItem("Data Explorer", tabName = "data", icon = icon("table")),
+      hr(),
+      menuItem("AI Insights", tabName = "ai_summary", icon = icon("brain")),
+      menuItem("AI Chat", tabName = "ai_chat", icon = icon("comments"))
     ),
     hr(),
     selectInput(
@@ -121,6 +126,42 @@ ui <- dashboardPage(
       max = Sys.Date()
     ),
     hr(),
+    conditionalPanel(
+      condition = "input.tabs == 'ai_summary' || input.tabs == 'ai_chat'",
+      selectInput(
+        "ai_provider", "AI Provider:",
+        choices = c("OpenAI" = "openai", "AWS Bedrock" = "bedrock"),
+        selected = AI_DEFAULTS$provider
+      ),
+      conditionalPanel(
+        condition = "input.ai_provider == 'openai'",
+        passwordInput("openai_key", "OpenAI API Key:",
+                      value = "",
+                      placeholder = "sk-..."),
+        selectInput("openai_model", "Model:",
+                    choices = c("gpt-4o" = "gpt-4o",
+                                "gpt-4o-mini" = "gpt-4o-mini",
+                                "gpt-4-turbo" = "gpt-4-turbo",
+                                "gpt-3.5-turbo" = "gpt-3.5-turbo"),
+                    selected = AI_DEFAULTS$openai_model)
+      ),
+      conditionalPanel(
+        condition = "input.ai_provider == 'bedrock'",
+        textInput("bedrock_region", "AWS Region:",
+                  value = AI_DEFAULTS$bedrock_region),
+        selectInput("bedrock_model", "Model:",
+                    choices = c(
+                      "Claude 3.5 Sonnet" = "anthropic.claude-3-5-sonnet-20241022-v2:0",
+                      "Claude 3 Sonnet"   = "anthropic.claude-3-sonnet-20240229-v1:0",
+                      "Claude 3 Haiku"    = "anthropic.claude-3-haiku-20240307-v1:0",
+                      "Titan Text"        = "amazon.titan-text-express-v1"
+                    ),
+                    selected = AI_DEFAULTS$bedrock_model),
+        div(style = "padding: 0 15px; font-size: 11px; color: #aaa;",
+            p("Uses AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from env."))
+      )
+    ),
+    hr(),
     div(
       style = "padding: 10px; font-size: 11px; color: #888;",
       p("Data sourced from Yahoo Finance."),
@@ -131,6 +172,40 @@ ui <- dashboardPage(
 
   dashboardBody(
     tags$head(
+      tags$script(HTML("
+        Shiny.addCustomMessageHandler('bindEnterKey', function(msg) {
+          var el = document.getElementById(msg.inputId);
+          if (el && !el.dataset.enterBound) {
+            el.dataset.enterBound = 'true';
+            el.addEventListener('keypress', function(e) {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById(msg.buttonId).click();
+              }
+            });
+          }
+        });
+        // Auto-scroll chat container on mutation
+        var chatObs = new MutationObserver(function() {
+          var c = document.getElementById('chat-scroll-container');
+          if (c) c.scrollTop = c.scrollHeight;
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+          var target = document.getElementById('chat-scroll-container');
+          if (target) chatObs.observe(target, {childList: true, subtree: true});
+        });
+        // Re-observe after Shiny renders
+        $(document).on('shiny:value', function() {
+          setTimeout(function() {
+            var c = document.getElementById('chat-scroll-container');
+            if (c) {
+              chatObs.disconnect();
+              chatObs.observe(c, {childList: true, subtree: true});
+              c.scrollTop = c.scrollHeight;
+            }
+          }, 100);
+        });
+      ")),
       tags$style(HTML("
         .content-wrapper { background-color: #f5f7fa; }
         .small-box { border-radius: 8px; }
@@ -162,6 +237,62 @@ ui <- dashboardPage(
           margin: 10px 0;
           border-radius: 0 4px 4px 0;
           font-size: 13px;
+        }
+        .ai-summary-box {
+          background: #ffffff;
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          padding: 20px;
+          margin: 10px 0;
+          white-space: pre-wrap;
+          font-size: 14px;
+          line-height: 1.6;
+        }
+        .chat-container {
+          height: 500px;
+          overflow-y: auto;
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          padding: 15px;
+          background: #fafafa;
+          margin-bottom: 10px;
+        }
+        .chat-msg {
+          margin-bottom: 12px;
+          padding: 10px 14px;
+          border-radius: 12px;
+          max-width: 85%;
+          line-height: 1.5;
+          font-size: 14px;
+          white-space: pre-wrap;
+        }
+        .chat-msg-user {
+          background: #1a237e;
+          color: white;
+          margin-left: auto;
+          text-align: right;
+          border-bottom-right-radius: 4px;
+        }
+        .chat-msg-ai {
+          background: #ffffff;
+          color: #333;
+          border: 1px solid #e0e0e0;
+          border-bottom-left-radius: 4px;
+        }
+        .chat-msg-label {
+          font-size: 11px;
+          font-weight: 600;
+          margin-bottom: 4px;
+          opacity: 0.7;
+        }
+        .chat-input-row {
+          display: flex;
+          gap: 8px;
+          align-items: flex-start;
+        }
+        .chat-input-row .form-group {
+          flex: 1;
+          margin-bottom: 0;
         }
       "))
     ),
@@ -386,6 +517,118 @@ ui <- dashboardPage(
               title = "OHLCV Data", width = NULL,
               status = "primary", solidHeader = TRUE,
               withSpinner(DT::dataTableOutput("data_table"))
+            )
+          )
+        )
+      ),
+
+      # ---- AI Insights Tab ----
+      tabItem(
+        tabName = "ai_summary",
+        fluidRow(
+          column(12, h2("AI-Powered Dashboard Insights"))
+        ),
+        fluidRow(
+          column(12,
+            div(class = "forecast-note",
+              icon("info-circle"),
+              "Configure your AI provider in the sidebar. OpenAI requires an API key; ",
+              "AWS Bedrock uses credentials from environment variables."
+            )
+          )
+        ),
+        fluidRow(
+          column(4,
+            box(
+              title = "Generate Summary", width = NULL,
+              status = "primary", solidHeader = TRUE,
+              p("Analyze the current stock category with AI to generate
+                an executive summary of performance, risk, and trends."),
+              actionButton("ai_summarize", "Summarize Dashboard",
+                           icon = icon("magic"),
+                           class = "btn-primary btn-block",
+                           style = "margin-top: 10px;"),
+              hr(),
+              radioButtons(
+                "ai_summary_focus", "Summary Focus:",
+                choices = c(
+                  "Full Overview"         = "overview",
+                  "Performance Analysis"  = "performance",
+                  "Risk & Volatility"     = "risk",
+                  "Trend & Momentum"      = "trend"
+                ),
+                selected = "overview"
+              )
+            )
+          ),
+          column(8,
+            box(
+              title = "AI Analysis", width = NULL,
+              status = "success", solidHeader = TRUE,
+              withSpinner(uiOutput("ai_summary_output"))
+            )
+          )
+        )
+      ),
+
+      # ---- AI Chat Tab ----
+      tabItem(
+        tabName = "ai_chat",
+        fluidRow(
+          column(12, h2("Chat with Your Data"))
+        ),
+        fluidRow(
+          column(12,
+            box(
+              title = "AI Assistant", width = 12,
+              status = "primary", solidHeader = TRUE,
+              uiOutput("chat_history_ui"),
+              div(class = "chat-input-row",
+                textInput("chat_input", label = NULL,
+                          placeholder = "Ask a question about your stock data...",
+                          width = "100%"),
+                actionButton("chat_send", "", icon = icon("paper-plane"),
+                             class = "btn-primary",
+                             style = "height: 38px; margin-top: 0;")
+              ),
+              div(style = "margin-top: 8px;",
+                actionButton("chat_clear", "Clear Chat",
+                             icon = icon("trash"), class = "btn-default btn-sm"),
+                span(style = "margin-left: 12px; font-size: 12px; color: #888;",
+                     "Press Enter or click send. Context includes current category data.")
+              )
+            )
+          )
+        ),
+        fluidRow(
+          column(12,
+            box(
+              title = "Suggested Questions", width = 12,
+              status = "info", solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+              fluidRow(
+                column(6,
+                  actionButton("sq1", "Which stock has the best risk-adjusted return?",
+                               class = "btn-default btn-block",
+                               style = "text-align:left; margin-bottom:5px;"),
+                  actionButton("sq2", "Compare the volatility of the top 3 performers",
+                               class = "btn-default btn-block",
+                               style = "text-align:left; margin-bottom:5px;"),
+                  actionButton("sq3", "What trends do you see in the recent 3 months?",
+                               class = "btn-default btn-block",
+                               style = "text-align:left; margin-bottom:5px;")
+                ),
+                column(6,
+                  actionButton("sq4", "Which stocks are most correlated?",
+                               class = "btn-default btn-block",
+                               style = "text-align:left; margin-bottom:5px;"),
+                  actionButton("sq5", "Summarize the overall sector performance",
+                               class = "btn-default btn-block",
+                               style = "text-align:left; margin-bottom:5px;"),
+                  actionButton("sq6", "What are the key risks in this category?",
+                               class = "btn-default btn-block",
+                               style = "text-align:left; margin-bottom:5px;")
+                )
+              )
             )
           )
         )
@@ -1059,6 +1302,198 @@ server <- function(input, output, session) {
       write.csv(df, file, row.names = FALSE)
     }
   )
+
+  # ===========================================================================
+  # AI INSIGHTS TAB
+  # ===========================================================================
+  ai_summary_text <- reactiveVal(NULL)
+
+  get_ai_config <- reactive({
+    list(
+      provider = input$ai_provider,
+      api_key  = if (!is.null(input$openai_key) && nchar(trimws(input$openai_key)) > 0) input$openai_key else AI_DEFAULTS$openai_key,
+      model    = if (input$ai_provider == "openai") input$openai_model else input$bedrock_model,
+      region   = if (!is.null(input$bedrock_region)) input$bedrock_region else AI_DEFAULTS$bedrock_region
+    )
+  })
+
+  get_data_context <- reactive({
+    cat_name <- input$category
+    cat_info <- STOCK_CATEGORIES[[cat_name]]
+    m <- overview_metrics()
+    build_data_context(cat_name, cat_info, m, input$date_range)
+  })
+
+  observeEvent(input$ai_summarize, {
+    cfg <- get_ai_config()
+    context <- get_data_context()
+
+    focus_prompts <- list(
+      overview    = "Provide a comprehensive overview covering performance, risk, trends, and key takeaways.",
+      performance = "Focus primarily on performance metrics: total returns, relative performance, and price movements.",
+      risk        = "Focus primarily on risk and volatility: which stocks are most/least volatile, risk-adjusted returns, and risk factors.",
+      trend       = "Focus primarily on trends and momentum: recent price movements, trend direction, and momentum indicators."
+    )
+    focus_text <- focus_prompts[[input$ai_summary_focus]]
+
+    messages <- list(
+      list(role = "system", content = SUMMARY_SYSTEM_PROMPT),
+      list(role = "user", content = paste0(
+        "Here is the current dashboard data:\n\n",
+        context, "\n\n",
+        "Please provide an analysis of this stock category. ", focus_text
+      ))
+    )
+
+    ai_summary_text("Generating AI summary...")
+
+    result <- call_ai(
+      messages    = messages,
+      provider    = cfg$provider,
+      api_key     = cfg$api_key,
+      model       = cfg$model,
+      region      = cfg$region
+    )
+
+    if (result$success) {
+      ai_summary_text(result$content)
+    } else {
+      ai_summary_text(paste("Error:", result$error))
+    }
+  })
+
+  output$ai_summary_output <- renderUI({
+    txt <- ai_summary_text()
+    if (is.null(txt)) {
+      div(
+        style = "text-align: center; padding: 40px; color: #999;",
+        icon("brain", style = "font-size: 48px; margin-bottom: 15px;"),
+        h4("Click 'Summarize Dashboard' to generate an AI analysis"),
+        p("The AI will analyze the current stock category data and provide insights.")
+      )
+    } else {
+      div(class = "ai-summary-box", txt)
+    }
+  })
+
+  # ===========================================================================
+  # AI CHAT TAB
+  # ===========================================================================
+  chat_history <- reactiveVal(list())
+
+  send_chat_message <- function(user_msg) {
+    cfg <- get_ai_config()
+    context <- get_data_context()
+
+    history <- chat_history()
+    history <- append(history, list(list(role = "user", content = user_msg)))
+    chat_history(history)
+
+    messages <- list(
+      list(role = "system", content = paste0(
+        CHAT_SYSTEM_PROMPT,
+        "\n\nCurrent dashboard data context:\n", context
+      ))
+    )
+    for (msg in history) {
+      messages <- append(messages, list(list(role = msg$role, content = msg$content)))
+    }
+
+    result <- call_ai(
+      messages    = messages,
+      provider    = cfg$provider,
+      api_key     = cfg$api_key,
+      model       = cfg$model,
+      region      = cfg$region
+    )
+
+    if (result$success) {
+      ai_reply <- result$content
+    } else {
+      ai_reply <- paste("Error:", result$error)
+    }
+
+    history <- append(history, list(list(role = "assistant", content = ai_reply)))
+    chat_history(history)
+
+    updateTextInput(session, "chat_input", value = "")
+  }
+
+  observeEvent(input$chat_send, {
+    req(nchar(trimws(input$chat_input)) > 0)
+    send_chat_message(trimws(input$chat_input))
+  })
+
+  # Enter key to send chat
+  observe({
+    session$sendCustomMessage("bindEnterKey", list(
+      inputId = "chat_input",
+      buttonId = "chat_send"
+    ))
+  })
+
+  # Suggested questions
+  observeEvent(input$sq1, {
+    send_chat_message("Which stock has the best risk-adjusted return?")
+  })
+  observeEvent(input$sq2, {
+    send_chat_message("Compare the volatility of the top 3 performers")
+  })
+  observeEvent(input$sq3, {
+    send_chat_message("What trends do you see in the recent 3 months?")
+  })
+  observeEvent(input$sq4, {
+    send_chat_message("Which stocks are most correlated?")
+  })
+  observeEvent(input$sq5, {
+    send_chat_message("Summarize the overall sector performance")
+  })
+  observeEvent(input$sq6, {
+    send_chat_message("What are the key risks in this category?")
+  })
+
+  observeEvent(input$chat_clear, {
+    chat_history(list())
+  })
+
+  output$chat_history_ui <- renderUI({
+    history <- chat_history()
+    if (length(history) == 0) {
+      return(div(
+        class = "chat-container",
+        div(
+          style = "text-align: center; padding: 60px 20px; color: #999;",
+          icon("comments", style = "font-size: 48px; margin-bottom: 15px;"),
+          h4("Ask a question about your stock data"),
+          p("The AI assistant has access to the current category's performance metrics."),
+          p("Try one of the suggested questions below, or type your own.")
+        )
+      ))
+    }
+
+    msg_tags <- lapply(history, function(msg) {
+      if (msg$role == "user") {
+        div(style = "display: flex; justify-content: flex-end;",
+          div(class = "chat-msg chat-msg-user",
+            div(class = "chat-msg-label", "You"),
+            msg$content
+          )
+        )
+      } else {
+        div(style = "display: flex; justify-content: flex-start;",
+          div(class = "chat-msg chat-msg-ai",
+            div(class = "chat-msg-label", "AI Assistant"),
+            msg$content
+          )
+        )
+      }
+    })
+
+    do.call(
+      div,
+      c(list(class = "chat-container", id = "chat-scroll-container"), msg_tags)
+    )
+  })
 }
 
 # ---------------------------------------------------------------------------

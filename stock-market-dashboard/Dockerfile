@@ -13,7 +13,10 @@ RUN install2.r --error --deps TRUE \
     dplyr \
     tidyr \
     forecast \
-    scales
+    scales \
+    httr \
+    jsonlite \
+    digest
 
 # Stage 2: Production image
 FROM rocker/shiny:4.4.0 AS production
@@ -26,6 +29,7 @@ RUN rm -rf /srv/shiny-server/*
 
 # Copy application code
 COPY app.R /srv/shiny-server/app.R
+COPY ai_module.R /srv/shiny-server/ai_module.R
 
 # Custom Shiny Server config
 RUN echo '\
