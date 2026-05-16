@@ -89,6 +89,36 @@ The Stock Market Dashboard is an interactive R Shiny web application that provid
 | Forecasting | Trend prediction | ARIMA/ETS/TBATS models with confidence intervals, residual diagnostics |
 | Data Explorer | Raw data access | Searchable OHLCV table with CSV download |
 
+### Dashboard Screenshots
+
+**Overview** - Category summary with value boxes, normalized performance chart, and summary table:
+
+![Overview Tab](images/01-overview-ai-ml.png)
+
+**Time Series Analysis** - Individual stock deep-dive with moving averages, statistics, and return distribution:
+
+![Time Series Analysis](images/02-time-series-analysis.png)
+
+**Comparative Analysis** - Cumulative returns overlay and monthly returns heatmap:
+
+![Comparative Analysis](images/03-comparative-analysis.png)
+
+**Volatility Analysis** - Rolling annualized volatility with S&P 500 benchmark and rankings:
+
+![Volatility Analysis](images/04-volatility-analysis.png)
+
+**Correlation Matrix** - Interactive heatmap of return correlations:
+
+![Correlation Matrix](images/05-correlation-matrix.png)
+
+**Forecasting** - ARIMA/ETS/TBATS models with confidence intervals and model diagnostics:
+
+![Forecasting](images/06-forecasting.png)
+
+**Data Explorer** - Searchable OHLCV data table with CSV download:
+
+![Data Explorer](images/07-data-explorer.png)
+
 ### Key Helper Functions
 
 | Function | Purpose |
