@@ -136,7 +136,7 @@ ui <- dashboardPage(
       conditionalPanel(
         condition = "input.ai_provider == 'openai'",
         passwordInput("openai_key", "OpenAI API Key:",
-                      value = AI_DEFAULTS$openai_key,
+                      value = "",
                       placeholder = "sk-..."),
         selectInput("openai_model", "Model:",
                     choices = c("gpt-4o" = "gpt-4o",
@@ -1311,7 +1311,7 @@ server <- function(input, output, session) {
   get_ai_config <- reactive({
     list(
       provider = input$ai_provider,
-      api_key  = if (!is.null(input$openai_key)) input$openai_key else AI_DEFAULTS$openai_key,
+      api_key  = if (!is.null(input$openai_key) && nchar(trimws(input$openai_key)) > 0) input$openai_key else AI_DEFAULTS$openai_key,
       model    = if (input$ai_provider == "openai") input$openai_model else input$bedrock_model,
       region   = if (!is.null(input$bedrock_region)) input$bedrock_region else AI_DEFAULTS$bedrock_region
     )
