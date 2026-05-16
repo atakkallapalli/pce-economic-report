@@ -101,7 +101,6 @@ call_bedrock <- function(messages, model_id = AI_DEFAULTS$bedrock_model,
   }
 
   body <- list(
-    modelId  = model_id,
     messages = bedrock_messages,
     inferenceConfig = list(
       maxTokens   = max_tokens,
@@ -135,7 +134,7 @@ call_bedrock <- function(messages, model_id = AI_DEFAULTS$bedrock_model,
 
   canonical_request <- paste0(
     "POST\n", path, "\n\n",
-    canonical_headers, "\n",
+    canonical_headers,
     signed_headers, "\n",
     payload_hash
   )
