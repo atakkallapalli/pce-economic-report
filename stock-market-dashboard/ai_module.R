@@ -116,8 +116,9 @@ call_bedrock <- function(messages, model_id = AI_DEFAULTS$bedrock_model,
 
   body_json <- toJSON(body, auto_unbox = TRUE)
 
-  timestamp <- format(Sys.time(), "%Y%m%dT%H%M%SZ", tz = "UTC")
-  datestamp <- format(Sys.time(), "%Y%m%d", tz = "UTC")
+  now <- Sys.time()
+  timestamp <- format(now, "%Y%m%dT%H%M%SZ", tz = "UTC")
+  datestamp <- format(now, "%Y%m%d", tz = "UTC")
   host <- paste0("bedrock-runtime.", region, ".amazonaws.com")
 
   payload_hash <- digest::digest(body_json, algo = "sha256", serialize = FALSE)
