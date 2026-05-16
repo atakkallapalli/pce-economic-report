@@ -946,7 +946,7 @@ server <- function(input, output, session) {
     hist_dates <- tail(index(prices), n_hist)
 
     last_date <- tail(index(prices), 1)
-    fc_dates <- seq(last_date + 1, by = "day", length.out = length(fc$mean))
+    fc_dates <- seq(last_date + 1, by = "day", length.out = ceiling(length(fc$mean) * 9 / 5) + 7)
     fc_dates <- fc_dates[!weekdays(fc_dates) %in% c("Saturday", "Sunday")]
     fc_dates <- fc_dates[1:length(fc$mean)]
 
@@ -1068,7 +1068,7 @@ moments_skewness <- function(x) {
   x <- x[!is.na(x)]
   n <- length(x)
   m <- mean(x)
-  s <- sd(x)
+  s <- sqrt(sum((x - m)^2) / n)
   if (s == 0) return(0)
   (sum((x - m)^3) / n) / s^3
 }
@@ -1077,7 +1077,7 @@ moments_kurtosis <- function(x) {
   x <- x[!is.na(x)]
   n <- length(x)
   m <- mean(x)
-  s <- sd(x)
+  s <- sqrt(sum((x - m)^2) / n)
   if (s == 0) return(0)
   (sum((x - m)^4) / n) / s^4
 }
