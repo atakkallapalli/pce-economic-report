@@ -1,6 +1,6 @@
 # Monorepo - Application Suite
 
-This repository hosts three independent applications. Each lives in its own directory with dedicated documentation, dependencies, and configuration.
+This repository hosts four independent applications. Each lives in its own directory with dedicated documentation, dependencies, and configuration.
 
 ## Applications
 
@@ -9,6 +9,7 @@ This repository hosts three independent applications. Each lives in its own dire
 | [Task Management API](./task-management-api/) | `task-management-api/` | Production-ready RESTful API for task management with JWT auth, RBAC, async notifications, and observability | Python 3.11, FastAPI, PostgreSQL, Redis, RabbitMQ |
 | [ETL Pipeline](./etl_pipeline/) | `etl_pipeline/` | PySpark ETL pipeline implementing medallion architecture (Bronze/Silver/Gold) with Delta Lake and Hive catalog | Python 3.10+, PySpark, Delta Lake, Hive, Streamlit |
 | [PCE Analytics](./pce_analytics/) | `pce_analytics/` | Data pipeline for FRED macroeconomic data ingestion, inflation analysis, and chart generation | Python 3.x, Pandas, Matplotlib, NumPy |
+| [Stock Market Dashboard](./stock-market-dashboard/) | `stock-market-dashboard/` | R Shiny dashboard for time series analysis and forecasting of AI, Capex, Storage, and pandemic-era market-driving stocks | R 4.1+, Shiny, quantmod, forecast, plotly |
 
 ---
 
@@ -109,12 +110,16 @@ This repository hosts three independent applications. Each lives in its own dire
 │   ├── tests/                   # Pipeline tests
 │   └── requirements.txt
 │
-└── pce_analytics/               # PCE Analytics
+├── pce_analytics/               # PCE Analytics
+│   ├── README.md
+│   ├── TECHNICAL_SUMMARY.md     # Detailed technical documentation
+│   ├── __init__.py
+│   ├── analyze_pce.py           # Analysis engine + chart generator
+│   └── download_data.py         # FRED data acquisition
+│
+└── stock-market-dashboard/      # Stock Market R Dashboard
     ├── README.md
-    ├── TECHNICAL_SUMMARY.md     # Detailed technical documentation
-    ├── __init__.py
-    ├── analyze_pce.py           # Analysis engine + chart generator
-    └── download_data.py         # FRED data acquisition
+    └── app.R                    # R Shiny application
 ```
 
 ---
@@ -132,4 +137,7 @@ cd etl_pipeline && cat README.md
 
 # PCE Analytics
 cd pce_analytics && cat README.md
+
+# Stock Market R Dashboard
+cd stock-market-dashboard && cat README.md
 ```
