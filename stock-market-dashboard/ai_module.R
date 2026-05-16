@@ -134,7 +134,7 @@ call_bedrock <- function(messages, model_id = AI_DEFAULTS$bedrock_model,
 
   canonical_request <- paste0(
     "POST\n", path, "\n\n",
-    canonical_headers,
+    canonical_headers, "\n",
     signed_headers, "\n",
     payload_hash
   )
