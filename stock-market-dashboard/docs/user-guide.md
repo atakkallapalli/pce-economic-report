@@ -101,6 +101,8 @@ Adjust the start and end dates to focus on a specific time period. The default r
 
 The Overview tab provides a high-level summary of the selected stock category.
 
+![Overview Tab - AI & Machine Learning category](images/01-overview-ai-ml.png)
+
 **What you see:**
 
 1. **Category Badge** - Color-coded badge showing the selected category and its description
@@ -122,6 +124,8 @@ The Overview tab provides a high-level summary of the selected stock category.
 ### Time Series Analysis Tab
 
 Deep-dive into a single stock's price history and statistics.
+
+![Time Series Analysis - NVDA closing price with moving averages](images/02-time-series-analysis.png)
 
 **Controls (left panel):**
 
@@ -156,6 +160,8 @@ Deep-dive into a single stock's price history and statistics.
 
 Compare performance across all selected stocks simultaneously.
 
+![Comparative Analysis - Cumulative returns and monthly heatmap](images/03-comparative-analysis.png)
+
 **What you see:**
 
 1. **Cumulative Returns Comparison** - All selected stocks plotted together showing cumulative returns over time. Lines that diverge upward have outperformed; lines that diverge downward have underperformed
@@ -174,6 +180,8 @@ Compare performance across all selected stocks simultaneously.
 ### Volatility Analysis Tab
 
 Measure and compare risk levels across stocks.
+
+![Volatility Analysis - Rolling volatility with S&P 500 benchmark](images/04-volatility-analysis.png)
 
 **Controls (left panel):**
 
@@ -197,6 +205,8 @@ Measure and compare risk levels across stocks.
 ### Correlation Matrix Tab
 
 Understand how stocks move in relation to each other.
+
+![Correlation Matrix - Return correlations heatmap](images/05-correlation-matrix.png)
 
 **Controls (left panel):**
 
@@ -229,6 +239,8 @@ A **heatmap** showing the correlation of daily returns between every pair of sto
 ### Forecasting Tab
 
 Generate statistical forecasts of future stock prices.
+
+![Forecasting - NVDA ARIMA forecast with confidence intervals](images/06-forecasting.png)
 
 **Controls (left panel):**
 
@@ -266,6 +278,8 @@ Generate statistical forecasts of future stock prices.
 ### Data Explorer Tab
 
 Browse and download raw stock data.
+
+![Data Explorer - NVDA OHLCV data table](images/07-data-explorer.png)
 
 **Controls (left panel):**
 
