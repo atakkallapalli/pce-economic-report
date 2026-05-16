@@ -72,5 +72,5 @@ variable "certificate_arn" {
 variable "image_tag" {
   description = "Docker image tag to deploy"
   type        = string
-  default     = "latest"
+  default     = "v1.0.0"
 }

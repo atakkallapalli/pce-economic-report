@@ -7,7 +7,7 @@ container_port = 3838
 desired_count  = 2
 cpu            = 1024
 memory         = 2048
-image_tag      = "latest"
+image_tag      = "v1.0.0"
 
 # Security
 enable_waf          = true
