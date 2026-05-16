@@ -947,7 +947,7 @@ server <- function(input, output, session) {
 
     last_date <- tail(index(prices), 1)
     fc_dates <- seq(last_date + 1, by = "day", length.out = ceiling(length(fc$mean) * 9 / 5) + 7)
-    fc_dates <- fc_dates[!weekdays(fc_dates) %in% c("Saturday", "Sunday")]
+    fc_dates <- fc_dates[!format(fc_dates, "%u") %in% c("6", "7")]
     fc_dates <- fc_dates[1:length(fc$mean)]
 
     p <- plot_ly() %>%
