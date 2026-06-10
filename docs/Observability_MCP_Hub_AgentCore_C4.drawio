@@ -1,0 +1,718 @@
+<mxfile host="app.diagrams.net" modified="2026-06-09T16:00:00.000Z" agent="Kiro" version="24.0.0" type="device">
+  <diagram id="ac-c4-level1" name="C4 Level 1 — System Context">
+    <mxGraphModel dx="1900" dy="1300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1300" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;font style=&quot;font-size:22px&quot;&gt;&lt;b&gt;System Context Diagram&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:12px;color:#666666&quot;&gt;C4 Level 1 — Enterprise Observability MCP Hub (AgentCore) | AWS GovCloud + Okta OIDC + Bedrock AgentCore&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#999999&quot;&gt;Network components (TGW, VPN, PrivateLink, Shield, WAF) managed by Enterprise Network Team — not shown&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="370" y="10" width="800" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- PEOPLE -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="person-sre" value="&lt;b&gt;SRE / Platform Engineer&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Person]&lt;br&gt;&lt;br&gt;Uses AI coding agents to&lt;br&gt;investigate incidents, query&lt;br&gt;logs/metrics, and automate&lt;br&gt;operational runbooks&lt;/font&gt;" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="70" y="80" width="200" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="person-admin" value="&lt;b&gt;Observability Admin&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Person]&lt;br&gt;&lt;br&gt;Manages AgentCore Gateway&lt;br&gt;targets, Okta scopes, IAM&lt;br&gt;policies, memory &amp; guardrails&lt;/font&gt;" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="80" width="200" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- SYSTEM IN SCOPE (Blue) -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="system-obs-hub" value="&lt;b&gt;Enterprise Observability MCP Hub&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Software System]&lt;br&gt;&lt;br&gt;Centralized observability gateway in AWS&lt;br&gt;GovCloud powered by Bedrock AgentCore.&lt;br&gt;Hosts self-hosted vendor MCP servers for&lt;br&gt;Splunk, Dynatrace, S3 Lakehouse, and&lt;br&gt;CloudWatch. AgentCore provides managed&lt;br&gt;MCP gateway, episodic memory, content&lt;br&gt;guardrails, and agent runtime.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=12;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="380" width="420" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="aws-icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#232F3E;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general_AWS_cloud;" vertex="1" parent="1">
+          <mxGeometry x="980" y="385" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- MCP CLIENT SYSTEMS -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="sys-desktop" value="&lt;b&gt;Desktop AI Coding Agents&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Software System]&lt;br&gt;&lt;br&gt;Claude Desktop, Cursor, VS Code&lt;br&gt;Copilot, Kiro, Devin — MCP clients&lt;br&gt;used for incident investigation&lt;br&gt;and operational automation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="380" width="260" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys-cloud-apps" value="&lt;b&gt;Enterprise Cloud Application Agents&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Software System]&lt;br&gt;&lt;br&gt;Apps in enterprise AWS accounts&lt;br&gt;(ECS, Lambda, SageMaker) running&lt;br&gt;AgentCore Runtime with MCP client&lt;br&gt;SDKs for automated remediation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="600" width="270" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys-onprem-agents" value="&lt;b&gt;On-Premises Ops Agents&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Software System]&lt;br&gt;&lt;br&gt;Autonomous incident response&lt;br&gt;agents on datacenter servers.&lt;br&gt;Strands SDK + Bedrock LLMs.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="130" width="230" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- EXTERNAL: Okta IdP -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="ext-okta" value="&lt;b&gt;Okta Identity Provider&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[External System]&lt;br&gt;&lt;br&gt;Enterprise IdP.&lt;br&gt;OIDC / OAuth 2.0 Authorization Server.&lt;br&gt;Issues JWT access tokens (RS256).&lt;br&gt;Adaptive MFA &amp; Group-based scopes.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="130" width="260" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- ENTERPRISE OBSERVABILITY DATA SOURCES -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="ent-boundary" value="&lt;b&gt;Enterprise Cloud Network Boundary&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Accessible via internal APIs (enterprise network routing)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#555555;strokeWidth=2;dashed=1;dashPattern=8 4;verticalAlign=top;align=center;spacingTop=5;fontSize=11;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="370" y="780" width="1100" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ext-splunk" value="&lt;b&gt;Splunk Enterprise&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Internal System]&lt;br&gt;&lt;br&gt;Log aggregation &amp; SIEM.&lt;br&gt;SPL queries, alerts,&lt;br&gt;saved searches.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="830" width="210" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ext-dynatrace" value="&lt;b&gt;Dynatrace&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Internal System]&lt;br&gt;&lt;br&gt;Full-stack APM.&lt;br&gt;Infrastructure monitoring,&lt;br&gt;Davis AI anomaly detection.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="830" width="210" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ext-s3-lake" value="&lt;b&gt;S3 Observability Lakehouse&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Internal System]&lt;br&gt;&lt;br&gt;Parquet/Iceberg data lake.&lt;br&gt;Historical logs, traces,&lt;br&gt;metrics via Athena/Spark.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="830" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ext-cloudwatch" value="&lt;b&gt;Amazon CloudWatch&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#FFFFFF&quot;&gt;[Internal System]&lt;br&gt;&lt;br&gt;AWS-native metrics, logs,&lt;br&gt;alarms, and dashboards.&lt;br&gt;Multi-account aggregation.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=11;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="830" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- RELATIONSHIPS -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="r-sre-desktop" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#707070;strokeWidth=2;" edge="1" source="person-sre" target="sys-desktop" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-sre-desktop-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#707070;" vertex="1" connectable="0" parent="r-sre-desktop">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-desktop-hub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="sys-desktop" target="system-obs-hub" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-desktop-hub-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;MCP tool calls via HTTPS&lt;br&gt;to AgentCore Gateway&lt;br&gt;+ Okta JWT Bearer" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r-desktop-hub">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-cloud-hub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="sys-cloud-apps" target="system-obs-hub" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-cloud-hub-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;MCP via internal network&lt;br&gt;+ Okta JWT (M2M Client Credentials)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r-cloud-hub">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-onprem-hub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="sys-onprem-agents" target="system-obs-hub" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-onprem-hub-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;MCP via enterprise network&lt;br&gt;+ Okta JWT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r-onprem-hub">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-hub-okta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="system-obs-hub" target="ext-okta" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-hub-okta-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;CUSTOM_JWT validates via&lt;br&gt;OIDC Discovery + JWKS" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r-hub-okta">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-clients-okta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1;" edge="1" source="sys-desktop" target="ext-okta" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="200" y="320" /><mxPoint x="1430" y="320" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="r-clients-okta-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;OAuth 2.0 Auth Code + PKCE (users) / Client Credentials (M2M)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#999999;" vertex="1" connectable="0" parent="r-clients-okta">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-hub-splunk" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="system-obs-hub" target="ext-splunk" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-hub-splunk-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;Queries logs/alerts&lt;br&gt;[Splunk REST API]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#555555;" vertex="1" connectable="0" parent="r-hub-splunk">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-hub-dyna" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="system-obs-hub" target="ext-dynatrace" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-hub-dyna-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;APM/infra metrics&lt;br&gt;[Dynatrace API v2]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#555555;" vertex="1" connectable="0" parent="r-hub-dyna">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-hub-lake" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="system-obs-hub" target="ext-s3-lake" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-hub-lake-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;Queries historical data&lt;br&gt;[S3 + Athena SQL]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#555555;" vertex="1" connectable="0" parent="r-hub-lake">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-hub-cw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="system-obs-hub" target="ext-cloudwatch" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-hub-cw-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;Metrics/logs/alarms&lt;br&gt;[CloudWatch API]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#555555;" vertex="1" connectable="0" parent="r-hub-cw">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-admin-hub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#707070;strokeWidth=2;" edge="1" source="person-admin" target="system-obs-hub" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-admin-hub-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;Manages &amp; monitors&lt;br&gt;[Terraform / Console]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#707070;" vertex="1" connectable="0" parent="r-admin-hub">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-admin-okta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#707070;strokeWidth=1;dashed=1;" edge="1" source="person-admin" target="ext-okta" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-admin-okta-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;Configures scopes &amp; policies" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#707070;" vertex="1" connectable="0" parent="r-admin-okta">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#E0E0E0;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1050" width="500" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-t" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1060" width="70" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="l-p" value="" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1095" width="25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l-p-t" value="&lt;font style=&quot;font-size:10px&quot;&gt;Person (SRE, Admin)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="75" y="1100" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l-s" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1130" width="25" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="l-s-t" value="&lt;font style=&quot;font-size:10px&quot;&gt;System in scope (Observability MCP Hub + AgentCore)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="75" y="1128" width="320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l-e" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1158" width="25" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="l-e-t" value="&lt;font style=&quot;font-size:10px&quot;&gt;External / MCP client system (Okta, Desktop Agents, Cloud Apps)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="75" y="1156" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l-i" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1186" width="25" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="l-i-t" value="&lt;font style=&quot;font-size:10px&quot;&gt;Internal enterprise system (Splunk, Dynatrace, S3 Lake, CloudWatch)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="75" y="1184" width="420" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l-r" value="" style="endArrow=classic;html=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="40" y="1220" as="sourcePoint" /><mxPoint x="65" y="1220" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="l-r-t" value="&lt;font style=&quot;font-size:10px&quot;&gt;Relationship (solid = data flow, dashed = auth/mgmt)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="75" y="1213" width="320" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="ac-c4-level2" name="C4 Level 2 — Container">
+    <mxGraphModel dx="2200" dy="1700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1700" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title2" value="&lt;font style=&quot;font-size:22px&quot;&gt;&lt;b&gt;Container Diagram&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:12px;color:#666666&quot;&gt;C4 Level 2 — Enterprise Observability MCP Hub (AgentCore) | Bedrock AgentCore + Okta OIDC + ECS Fargate Targets&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="950" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- EXTERNAL ACTORS (Top) -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="a-desktop" value="&lt;b&gt;Desktop AI Coding Agents&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[External] Claude, Cursor, VS Code, Kiro, Devin&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a-cloud" value="&lt;b&gt;Enterprise Cloud Application Agents&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[External] ECS/Lambda/SageMaker (AgentCore Runtime)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="80" width="310" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a-onprem" value="&lt;b&gt;On-Premises Ops Agents&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[External] Datacenter Servers (Strands SDK)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="80" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a-okta" value="&lt;b&gt;Okta IdP&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[External] OIDC / OAuth 2.0 Authorization Server&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#8A8A8A;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="80" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- AWS GOVCLOUD BOUNDARY -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="govcloud-boundary" value="AWS GovCloud (US)" style="shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;stroke=#232F3E;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=10;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="170" width="2150" height="1240" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- SYSTEM BOUNDARY -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="boundary" value="&lt;b&gt;Enterprise Observability MCP Hub&lt;/b&gt; [System Boundary — AWS GovCloud Account]&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#438DD5&quot;&gt;Network ingress (TGW, VPN, PrivateLink, WAF, Shield) managed by Enterprise Network Team — not shown&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#438DD5;strokeWidth=3;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontSize=12;fontColor=#438DD5;fontStyle=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="190" width="2100" height="1200" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- AGENTCORE PLATFORM -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <mxCell id="ac-platform" value="&lt;b&gt;Amazon Bedrock AgentCore Platform&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#D79B00&quot;&gt;Managed MCP Gateway | Episodic Memory | Content Guardrails | Agent Runtime&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#D79B00;strokeWidth=3;dashed=1;dashPattern=6 3;verticalAlign=top;align=left;spacingLeft=15;spacingTop=8;fontSize=12;fontColor=#D79B00;fontStyle=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="250" width="1300" height="500" as="geometry" />
+        </mxCell>
+
+        <!-- AgentCore Gateway -->
+        <mxCell id="c-gateway" value="&lt;b&gt;AgentCore Gateway&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: Bedrock AgentCore]&lt;br&gt;&lt;br&gt;ProtocolType: MCP (native)&lt;br&gt;AuthorizerType: CUSTOM_JWT&lt;br&gt;DiscoveryUrl: Okta OIDC&lt;br&gt;AllowedClients: [app-ids]&lt;br&gt;Managed TLS 1.3 Endpoint&lt;br&gt;Built-in Rate Limiting&lt;br&gt;Tool Discovery &amp; Routing&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#0D3C11;fontColor=#FFFFFF;fontSize=11;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="310" width="280" height="190" as="geometry" />
+        </mxCell>
+        <!-- AgentCore Gateway Icon -->
+        <mxCell id="icon-gateway" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#01A88D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="795" y="315" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- AgentCore Memory -->
+        <mxCell id="c-memory" value="&lt;b&gt;AgentCore Memory&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: Bedrock AgentCore]&lt;br&gt;&lt;br&gt;Episodic Memory (investigations)&lt;br&gt;Semantic Memory (infra facts)&lt;br&gt;Session Summaries&lt;br&gt;User Preferences&lt;br&gt;Cross-Session Learning&lt;br&gt;90-day Event Expiry&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#0D3C11;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="330" width="230" height="170" as="geometry" />
+        </mxCell>
+        <!-- Memory Icon -->
+        <mxCell id="icon-memory" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#3F8624;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elasticache;" vertex="1" parent="1">
+          <mxGeometry x="345" y="335" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- AgentCore Guardrails -->
+        <mxCell id="c-guardrails" value="&lt;b&gt;AgentCore Guardrails&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: Bedrock AgentCore]&lt;br&gt;&lt;br&gt;PII/PHI Detection &amp; Blocking&lt;br&gt;Topic Restrictions&lt;br&gt;Data Volume Governance&lt;br&gt;Cross-Account Boundary&lt;br&gt;Pre/Post Tool-Call Checks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C62828;strokeColor=#B71C1C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="330" width="230" height="160" as="geometry" />
+        </mxCell>
+        <!-- Guardrails Icon -->
+        <mxCell id="icon-guardrails" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.shield;" vertex="1" parent="1">
+          <mxGeometry x="1095" y="335" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- AgentCore Runtime -->
+        <mxCell id="c-runtime" value="&lt;b&gt;AgentCore Runtime&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: Bedrock AgentCore]&lt;br&gt;&lt;br&gt;Container-Based Agent Hosting&lt;br&gt;HTTP Protocol Config&lt;br&gt;Auto-Scaling&lt;br&gt;Health Monitoring&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#0D3C11;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="560" width="220" height="140" as="geometry" />
+        </mxCell>
+        <!-- Runtime Icon -->
+        <mxCell id="icon-runtime" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D86613;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+          <mxGeometry x="335" y="565" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- VPC Boundary around ECS targets -->
+        <mxCell id="vpc-boundary" value="VPC" style="shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc2;stroke=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=10;fontSize=12;fontStyle=1;fontColor=#8C4FFF;" vertex="1" parent="1">
+          <mxGeometry x="80" y="790" width="1990" height="390" as="geometry" />
+        </mxCell>
+
+        <!-- Gateway URL Callout -->
+        <mxCell id="gw-url" value="&lt;b&gt;Gateway URL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;https://&lt;gateway-id&gt;.bedrock-agentcore.&lt;br&gt;us-gov-west-1.amazonaws.com&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#D79B00;fillColor=#FFF4E6;fontSize=9;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="510" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- ECS FARGATE MCP SERVER TARGETS -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <mxCell id="ecs-boundary" value="&lt;b&gt;Gateway Targets — ECS Cluster (Fargate) — Observability MCP Servers&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#D86613&quot;&gt;Private Subnets | No Public IP | CredentialProvider: GATEWAY_IAM_ROLE | Auto Scaling per service&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#D86613;strokeWidth=2;dashed=1;dashPattern=6 3;verticalAlign=top;align=left;spacingLeft=15;spacingTop=8;fontSize=11;fontColor=#D86613;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="820" width="1950" height="340" as="geometry" />
+        </mxCell>
+        <!-- Fargate Icon on ECS boundary -->
+        <mxCell id="icon-ecs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D86613;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+          <mxGeometry x="2015" y="825" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-splunk" value="&lt;b&gt;Splunk MCP Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: ECS Fargate]&lt;br&gt;GatewayTarget: splunk-mcp-target&lt;br&gt;&lt;br&gt;Tools:&lt;br&gt;  splunk_search&lt;br&gt;  splunk_get_alerts&lt;br&gt;  splunk_list_indexes&lt;br&gt;  splunk_saved_searches&lt;br&gt;Port: 3000&lt;br&gt;CPU: 512 | Mem: 1024MB&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D86613;strokeColor=#B85A0A;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="890" width="230" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-dynatrace" value="&lt;b&gt;Dynatrace MCP Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: ECS Fargate]&lt;br&gt;GatewayTarget: dynatrace-mcp-target&lt;br&gt;&lt;br&gt;Tools:&lt;br&gt;  dt_get_problems&lt;br&gt;  dt_query_metrics&lt;br&gt;  dt_get_entities&lt;br&gt;  dt_get_logs&lt;br&gt;Port: 3001&lt;br&gt;CPU: 512 | Mem: 1024MB&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D86613;strokeColor=#B85A0A;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="890" width="230" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-s3lake" value="&lt;b&gt;S3 Lakehouse MCP Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: ECS Fargate]&lt;br&gt;GatewayTarget: s3lake-mcp-target&lt;br&gt;&lt;br&gt;Tools:&lt;br&gt;  lake_query_athena&lt;br&gt;  lake_list_tables&lt;br&gt;  lake_get_partitions&lt;br&gt;  lake_describe_schema&lt;br&gt;Port: 3002&lt;br&gt;CPU: 1024 | Mem: 2048MB&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D86613;strokeColor=#B85A0A;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="890" width="240" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-cloudwatch" value="&lt;b&gt;CloudWatch MCP Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: ECS Fargate]&lt;br&gt;GatewayTarget: cloudwatch-mcp-target&lt;br&gt;&lt;br&gt;Tools:&lt;br&gt;  cw_get_metrics&lt;br&gt;  cw_query_logs&lt;br&gt;  cw_describe_alarms&lt;br&gt;  cw_get_dashboards&lt;br&gt;Port: 3003&lt;br&gt;CPU: 512 | Mem: 1024MB&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D86613;strokeColor=#B85A0A;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="890" width="230" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-vendor-n" value="&lt;b&gt;Vendor N MCP Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: ECS Fargate]&lt;br&gt;(Extensible Slot)&lt;br&gt;&lt;br&gt;Future: Datadog, PagerDuty,&lt;br&gt;Grafana, New Relic, etc.&lt;br&gt;Port: 300N&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D86613;strokeColor=#B85A0A;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="890" width="210" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-autoscale" value="&lt;b&gt;ECS Auto Scaling&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;Target Tracking CPU 70%&lt;br&gt;Min: 2 | Max: 10&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D86613;strokeColor=#B85A0A;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1550" y="920" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-autoscale" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D86613;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.auto_scaling2;" vertex="1" parent="1">
+          <mxGeometry x="1695" y="925" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-cloudmap" value="&lt;b&gt;Cloud Map&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;Service Discovery&lt;br&gt;mcp-obs.internal&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D86613;strokeColor=#B85A0A;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1790" y="920" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-cloudmap" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloud_map;" vertex="1" parent="1">
+          <mxGeometry x="1935" y="925" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- DATA / SECRETS TIER -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <mxCell id="c-secrets" value="&lt;b&gt;AWS Secrets Manager&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: AWS Managed]&lt;br&gt;&lt;br&gt;Vendor API Tokens&lt;br&gt;Auto-Rotation (30d)&lt;br&gt;Per-Target Scoping&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C62828;strokeColor=#B71C1C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1240" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-secrets" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.secrets_manager;" vertex="1" parent="1">
+          <mxGeometry x="365" y="1245" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-kms" value="&lt;b&gt;AWS KMS&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: AWS Managed]&lt;br&gt;&lt;br&gt;CMK (FIPS 140-2 L3)&lt;br&gt;Envelope Encryption&lt;br&gt;Encrypts: Secrets, Logs&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C62828;strokeColor=#B71C1C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1240" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-kms" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.key_management_service;" vertex="1" parent="1">
+          <mxGeometry x="635" y="1245" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-ssm" value="&lt;b&gt;SSM Parameter Store&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container: AWS Managed]&lt;br&gt;&lt;br&gt;MCP Server Configs&lt;br&gt;Endpoint URLs&lt;br&gt;Feature Flags&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C62828;strokeColor=#B71C1C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="1240" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-ssm" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.systems_manager_parameter_store;" vertex="1" parent="1">
+          <mxGeometry x="905" y="1245" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- OBSERVABILITY -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <mxCell id="c-cw-obs" value="&lt;b&gt;CloudWatch&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container]&lt;br&gt;Container Insights&lt;br&gt;Custom Metrics&lt;br&gt;Alarms&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1240" width="170" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-cw-obs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;" vertex="1" parent="1">
+          <mxGeometry x="1235" y="1245" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-xray" value="&lt;b&gt;X-Ray&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container]&lt;br&gt;Distributed Tracing&lt;br&gt;Service Map&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="1240" width="150" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-xray" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.xray;" vertex="1" parent="1">
+          <mxGeometry x="1445" y="1245" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-trail" value="&lt;b&gt;CloudTrail&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container]&lt;br&gt;API Audit&lt;br&gt;Compliance&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="1240" width="150" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-trail" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudtrail;" vertex="1" parent="1">
+          <mxGeometry x="1655" y="1245" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-guardduty" value="&lt;b&gt;GuardDuty&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container]&lt;br&gt;ECS Runtime&lt;br&gt;Threat Detection&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="1240" width="150" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-guardduty" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.guardduty;" vertex="1" parent="1">
+          <mxGeometry x="1865" y="1245" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- ENTERPRISE DATA SOURCES (Bottom) -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <mxCell id="ent-sources" value="&lt;b&gt;Enterprise Cloud Network — Observability Data Sources&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Accessible via internal enterprise network APIs&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#555555;strokeWidth=2;dashed=1;dashPattern=8 4;verticalAlign=top;align=center;spacingTop=5;fontSize=11;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1460" width="1600" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="d-splunk" value="&lt;b&gt;Splunk Enterprise&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;REST API&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1520" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="d-dyna" value="&lt;b&gt;Dynatrace&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;API v2&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="1520" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="d-s3" value="&lt;b&gt;S3 Lakehouse + Athena&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;SQL / S3 API&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="1520" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="d-cw" value="&lt;b&gt;Amazon CloudWatch&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;CloudWatch API&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="1520" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- RELATIONSHIPS -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <!-- Clients → Gateway -->
+        <mxCell id="r-desktop-gw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="a-desktop" target="c-gateway" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-desktop-gw-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;MCP over HTTPS&lt;br&gt;+ Okta JWT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r-desktop-gw">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-cloud-gw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="a-cloud" target="c-gateway" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-cloud-gw-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;MCP + Okta M2M JWT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r-cloud-gw">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-onprem-gw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="a-onprem" target="c-gateway" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-onprem-gw-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;MCP + Okta JWT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r-onprem-gw">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Gateway → Okta -->
+        <mxCell id="r-gw-okta" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1;" edge="1" source="c-gateway" target="a-okta" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-gw-okta-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;CUSTOM_JWT: JWKS fetch&lt;br&gt;(OIDC Discovery)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#999999;" vertex="1" connectable="0" parent="r-gw-okta">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Gateway → Memory -->
+        <mxCell id="r-gw-memory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1B5E20;strokeWidth=2;" edge="1" source="c-gateway" target="c-memory" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-gw-memory-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Context recall&lt;br&gt;&amp; session store" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#1B5E20;" vertex="1" connectable="0" parent="r-gw-memory">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Gateway → Guardrails -->
+        <mxCell id="r-gw-guard" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#C62828;strokeWidth=2;" edge="1" source="c-gateway" target="c-guardrails" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-gw-guard-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Pre/Post tool-call&lt;br&gt;content checks" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#C62828;" vertex="1" connectable="0" parent="r-gw-guard">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Gateway → Targets -->
+        <mxCell id="r-gw-splunk" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#D86613;strokeWidth=2;" edge="1" source="c-gateway" target="c-splunk" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-gw-splunk-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Route: splunk tools" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#D86613;" vertex="1" connectable="0" parent="r-gw-splunk">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-gw-dyna" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#D86613;strokeWidth=2;" edge="1" source="c-gateway" target="c-dynatrace" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-gw-dyna-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Route: dynatrace tools" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#D86613;" vertex="1" connectable="0" parent="r-gw-dyna">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-gw-lake" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#D86613;strokeWidth=2;" edge="1" source="c-gateway" target="c-s3lake" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-gw-lake-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Route: s3-lake tools" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#D86613;" vertex="1" connectable="0" parent="r-gw-lake">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r-gw-cw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#D86613;strokeWidth=2;" edge="1" source="c-gateway" target="c-cloudwatch" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-gw-cw-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Route: cloudwatch tools" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#D86613;" vertex="1" connectable="0" parent="r-gw-cw">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ECS → Secrets -->
+        <mxCell id="r-ecs-secrets" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#C62828;strokeWidth=1;dashed=1;" edge="1" source="c-splunk" target="c-secrets" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-ecs-secrets-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Get API tokens&lt;br&gt;(GATEWAY_IAM_ROLE)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#C62828;" vertex="1" connectable="0" parent="r-ecs-secrets">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ECS → Data Sources -->
+        <mxCell id="r-splunk-ext" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="c-splunk" target="d-splunk" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-dyna-ext" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="c-dynatrace" target="d-dyna" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-lake-ext" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="c-s3lake" target="d-s3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r-cw-ext" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="c-cloudwatch" target="d-cw" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="ac-c4-level3" name="C4 Level 3 — Component (MCP Server)">
+    <mxGraphModel dx="1800" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1400" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title3" value="&lt;font style=&quot;font-size:22px&quot;&gt;&lt;b&gt;Component Diagram&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:12px;color:#666666&quot;&gt;C4 Level 3 — Internal Components of a Gateway Target MCP Server (e.g., Splunk MCP on ECS Fargate)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="10" width="850" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- External: AgentCore Gateway -->
+        <mxCell id="ext-gw" value="&lt;b&gt;AgentCore Gateway&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container] Routes MCP tool_call here&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#0D3C11;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="70" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- External: Secrets Manager -->
+        <mxCell id="ext-secrets" value="&lt;b&gt;Secrets Manager&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container] API Tokens (GATEWAY_IAM_ROLE)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C62828;strokeColor=#B71C1C;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="500" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- External: Vendor API -->
+        <mxCell id="ext-vendor" value="&lt;b&gt;Splunk Enterprise&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Internal System] REST API (enterprise network)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#444444;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="1250" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- External: CloudWatch -->
+        <mxCell id="ext-cw-obs" value="&lt;b&gt;CloudWatch&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container] Metrics + Logs + X-Ray&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="500" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- External: AgentCore Memory -->
+        <mxCell id="ext-memory" value="&lt;b&gt;AgentCore Memory&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Container] Episodic + Semantic&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#0D3C11;fontColor=#FFFFFF;fontSize=10;arcSize=3;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="750" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- MCP SERVER CONTAINER BOUNDARY -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="server-boundary" value="&lt;b&gt;Splunk MCP Server&lt;/b&gt; [Container: ECS Fargate Task — Port 3000 — GatewayTarget: splunk-mcp-target]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#D86613;strokeWidth=3;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=15;spacingTop=10;fontSize=12;fontColor=#D86613;fontStyle=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="320" y="180" width="1050" height="1000" as="geometry" />
+        </mxCell>
+
+        <!-- Component: HTTP Transport Layer -->
+        <mxCell id="comp-transport" value="&lt;b&gt;HTTP/SSE Transport Layer&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;Express.js / FastAPI&lt;br&gt;HTTP POST /mcp (Streamable HTTP)&lt;br&gt;SSE for streaming responses&lt;br&gt;Health endpoint: GET /health&lt;br&gt;Request parsing &amp; validation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="240" width="250" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Component: MCP Protocol Handler -->
+        <mxCell id="comp-protocol" value="&lt;b&gt;MCP Protocol Handler&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;JSON-RPC 2.0 Processing&lt;br&gt;tools/list → Tool Registry&lt;br&gt;tools/call → Tool Router&lt;br&gt;initialize → Capabilities&lt;br&gt;MCP SDK (TypeScript/Python)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="470" width="250" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Component: Tool Registry -->
+        <mxCell id="comp-registry" value="&lt;b&gt;Tool Registry&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;Registered Tools:&lt;br&gt;  • splunk_search&lt;br&gt;  • splunk_get_alerts&lt;br&gt;  • splunk_list_indexes&lt;br&gt;  • splunk_saved_searches&lt;br&gt;JSON Schema Definitions&lt;br&gt;Input Validation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="470" width="220" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- Component: Vendor API Client -->
+        <mxCell id="comp-client" value="&lt;b&gt;Splunk API Client&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;HTTP Client (axios/httpx)&lt;br&gt;Splunk REST API v2&lt;br&gt;Connection Pooling&lt;br&gt;Retry (exponential backoff)&lt;br&gt;Timeout: 30s&lt;br&gt;Response Parsing (JSON/XML)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="720" width="250" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- Component: Credential Provider -->
+        <mxCell id="comp-creds" value="&lt;b&gt;Credential Provider&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;GATEWAY_IAM_ROLE access&lt;br&gt;Secrets Manager fetch&lt;br&gt;In-memory cache (TTL 5 min)&lt;br&gt;Lazy initialization&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="750" width="220" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Component: Response Formatter -->
+        <mxCell id="comp-formatter" value="&lt;b&gt;Response Formatter&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;MCP tool_result formatting&lt;br&gt;Pagination handling&lt;br&gt;Error mapping&lt;br&gt;Content truncation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="960" width="220" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Component: Memory Client -->
+        <mxCell id="comp-memory-client" value="&lt;b&gt;Memory Client&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;AgentCore Memory API&lt;br&gt;Context recall before tool exec&lt;br&gt;Episode storage after exec&lt;br&gt;Fact extraction&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="720" width="140" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Component: Observability Middleware -->
+        <mxCell id="comp-obs" value="&lt;b&gt;Observability Middleware&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#FFFFFF&quot;&gt;[Component]&lt;br&gt;&lt;br&gt;Structured Logging (JSON)&lt;br&gt;X-Ray Trace Segments&lt;br&gt;Custom Metrics (EMF)&lt;br&gt;Request/Response Logging&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#3C7FC0;fontColor=#FFFFFF;fontSize=10;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="470" width="140" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- COMPONENT RELATIONSHIPS -->
+        <!-- ════════════════════════════════════════════ -->
+
+        <mxCell id="r3-gw-transport" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="ext-gw" target="comp-transport" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-gw-transport-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;HTTP :3000" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r3-gw-transport">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3-transport-protocol" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="comp-transport" target="comp-protocol" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-transport-protocol-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;JSON-RPC request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r3-transport-protocol">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3-protocol-registry" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="comp-protocol" target="comp-registry" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-protocol-registry-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;tools/list &amp; tools/call" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r3-protocol-registry">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3-protocol-client" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="comp-protocol" target="comp-client" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-protocol-client-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Execute tool" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r3-protocol-client">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3-client-creds" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="comp-client" target="comp-creds" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-client-creds-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Get API token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r3-client-creds">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3-creds-secrets" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#C62828;strokeWidth=2;" edge="1" source="comp-creds" target="ext-secrets" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-creds-secrets-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;GetSecretValue&lt;br&gt;(GATEWAY_IAM_ROLE)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#C62828;" vertex="1" connectable="0" parent="r3-creds-secrets">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3-client-vendor" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#555555;strokeWidth=2;" edge="1" source="comp-client" target="ext-vendor" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-client-vendor-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Splunk REST API call&lt;br&gt;(enterprise network)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#555555;" vertex="1" connectable="0" parent="r3-client-vendor">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3-client-formatter" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#438DD5;strokeWidth=2;" edge="1" source="comp-client" target="comp-formatter" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-client-formatter-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Raw response" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#438DD5;" vertex="1" connectable="0" parent="r3-client-formatter">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Memory Client → Memory -->
+        <mxCell id="r3-memclient-memory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1B5E20;strokeWidth=2;" edge="1" source="comp-memory-client" target="ext-memory" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-memclient-memory-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Recall context &amp;&lt;br&gt;store episodes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#1B5E20;" vertex="1" connectable="0" parent="r3-memclient-memory">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Protocol → Memory Client -->
+        <mxCell id="r3-protocol-memory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1B5E20;strokeWidth=1;dashed=1;" edge="1" source="comp-protocol" target="comp-memory-client" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-protocol-memory-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Context&lt;br&gt;enrichment" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#1B5E20;" vertex="1" connectable="0" parent="r3-protocol-memory">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Obs → CloudWatch -->
+        <mxCell id="r3-obs-cw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6A1B9A;strokeWidth=1;dashed=1;" edge="1" source="comp-obs" target="ext-cw-obs" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3-obs-cw-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Logs, Metrics,&lt;br&gt;Traces" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#6A1B9A;" vertex="1" connectable="0" parent="r3-obs-cw">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
