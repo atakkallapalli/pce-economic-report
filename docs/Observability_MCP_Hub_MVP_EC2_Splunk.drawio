@@ -1,0 +1,318 @@
+<mxfile host="app.diagrams.net" modified="2026-06-11T10:00:00.000Z" agent="Kiro" version="24.0.0" type="device">
+  <diagram id="mvp-architecture" name="MVP Architecture — EC2 + ALB + Splunk">
+    <mxGraphModel dx="2400" dy="1800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- TITLE -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+
+        <mxCell id="title" value="&lt;font style=&quot;font-size:20px&quot;&gt;&lt;b&gt;Observability MCP Hub — MVP (Non-AgentCore)&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:12px;color:#555&quot;&gt;EC2 + ALB + Splunk MCP Server | AWS GovCloud (us-gov-west-1) | Chat UI → MCP → Splunk Enterprise&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="600" y="15" width="800" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- AWS GOVCLOUD ACCOUNT BOUNDARY -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+
+        <mxCell id="govcloud" value="&lt;b&gt;AWS GovCloud (US) Account&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#555&quot;&gt;FedRAMP High | us-gov-west-1&lt;/font&gt;" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=14;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;stroke=#232F3E;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=10;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="80" width="2200" height="1550" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- VPC BOUNDARY -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+
+        <mxCell id="vpc" value="&lt;b&gt;VPC&lt;/b&gt; (10.0.0.0/16)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc2;stroke=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=10;dashed=0;fontColor=#8C4FFF;" vertex="1" parent="1">
+          <mxGeometry x="150" y="150" width="2100" height="1430" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- PUBLIC SUBNET (ALB) -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+
+        <mxCell id="public-subnet" value="&lt;b&gt;Public Subnet&lt;/b&gt; (10.0.0.0/24) — AZ-a" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=10;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#7AA116;fillColor=#F2F6E8;verticalAlign=top;align=left;spacingLeft=30;spacingTop=5;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="220" width="700" height="350" as="geometry" />
+        </mxCell>
+
+        <!-- ALB -->
+        <mxCell id="alb" value="&lt;b&gt;Application Load Balancer&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Internet-facing&lt;br&gt;HTTPS (:443)&lt;br&gt;ACM TLS 1.3 Certificate&lt;br&gt;Listener Rules:&lt;br&gt;  /* → EC2 Target Group&lt;br&gt;Health Check: /health&lt;br&gt;Idle Timeout: 120s&lt;br&gt;WAF v2 attached (OWASP)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8C4FFF;fontSize=11;verticalAlign=top;align=center;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="350" y="290" width="250" height="200" as="geometry" />
+        </mxCell>
+        <!-- ALB Icon -->
+        <mxCell id="icon-alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="560" y="295" width="35" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- ACM Certificate -->
+        <mxCell id="acm" value="&lt;b&gt;ACM&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;TLS 1.3 Cert&lt;br&gt;Auto-Renew&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;fontSize=9;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="680" y="310" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-acm" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.certificate_manager_3;" vertex="1" parent="1">
+          <mxGeometry x="747" y="313" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- PRIVATE SUBNET (EC2 + Splunk) -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+
+        <mxCell id="private-subnet" value="&lt;b&gt;Private Subnet&lt;/b&gt; (10.0.10.0/24) — AZ-a" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=10;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=#147EBA;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;spacingTop=5;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="630" width="2000" height="900" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- EC2 INSTANCE (Chat UI + MCP Server) -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <mxCell id="ec2-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D86613;strokeWidth=2;shadow=1;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="250" y="720" width="900" height="750" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2-label" value="&lt;b&gt;Amazon EC2 Instance&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;t3.large | Amazon Linux 2023 | Private IP only&lt;br&gt;Instance Profile: mcp-ec2-role | IMDSv2 enforced | EBS encrypted (KMS)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="730" width="500" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#D86613;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="725" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Chat UI (Web App) -->
+        <mxCell id="chat-ui" value="&lt;b&gt;Chat UI (Web Application)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;React/Next.js SPA&lt;br&gt;Port: 3000 (Nginx reverse proxy)&lt;br&gt;Okta OIDC Login (PKCE)&lt;br&gt;Session: HTTP-only Secure Cookie&lt;br&gt;CSP Headers enforced&lt;br&gt;User sends natural language queries&lt;br&gt;Renders MCP tool_result responses&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=10;verticalAlign=top;align=center;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="310" y="810" width="280" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- LLM / Agent Backend -->
+        <mxCell id="agent-backend" value="&lt;b&gt;Agent Backend (Python)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Strands SDK / LangChain&lt;br&gt;Port: 8000 (FastAPI)&lt;br&gt;Receives user query from Chat UI&lt;br&gt;Calls Amazon Bedrock (Claude)&lt;br&gt;for intent → MCP tool_call&lt;br&gt;Invokes MCP Server locally&lt;br&gt;Returns formatted response&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=10;verticalAlign=top;align=center;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="310" y="1050" width="280" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- MCP Server -->
+        <mxCell id="mcp-server" value="&lt;b&gt;Splunk MCP Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;MCP SDK (TypeScript/Python)&lt;br&gt;Port: 3001 (HTTP Streamable)&lt;br&gt;Protocol: JSON-RPC 2.0&lt;br&gt;Tools:&lt;br&gt;  • splunk_search (SPL queries)&lt;br&gt;  • splunk_get_alerts&lt;br&gt;  • splunk_list_indexes&lt;br&gt;  • splunk_saved_searches&lt;br&gt;Credentials: from Secrets Manager&lt;br&gt;Input validation: JSON Schema&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=10;verticalAlign=top;align=center;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="700" y="810" width="300" height="230" as="geometry" />
+        </mxCell>
+
+        <!-- Observability Agent (CloudWatch) -->
+        <mxCell id="cw-agent" value="&lt;b&gt;CloudWatch Agent&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Logs + Metrics&lt;br&gt;X-Ray Daemon&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;fontSize=9;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1100" width="130" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Nginx -->
+        <mxCell id="nginx" value="&lt;b&gt;Nginx&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Reverse Proxy&lt;br&gt;:80/:443 → :3000 (UI)&lt;br&gt;/api/* → :8000 (Agent)&lt;br&gt;/mcp/* → :3001 (MCP)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#455A64;fontSize=9;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="310" y="1290" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- SPLUNK ENTERPRISE -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <mxCell id="splunk-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=2;shadow=1;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="750" width="750" height="580" as="geometry" />
+        </mxCell>
+        <mxCell id="splunk-label" value="&lt;b&gt;Splunk Enterprise&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Deployed in same VPC / Private Subnet | Port: 8089 (REST API) + 8088 (HEC)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="760" width="490" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Splunk REST API -->
+        <mxCell id="splunk-rest" value="&lt;b&gt;Splunk REST API&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Port: 8089 (HTTPS)&lt;br&gt;Endpoints:&lt;br&gt;  /services/search/jobs&lt;br&gt;  /services/alerts/fired_alerts&lt;br&gt;  /services/data/indexes&lt;br&gt;  /services/saved/searches&lt;br&gt;Auth: Bearer Token&lt;br&gt;TLS: Self-signed / Internal CA&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#37474F;fontSize=10;verticalAlign=top;align=center;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="830" width="250" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Splunk Search Head -->
+        <mxCell id="splunk-sh" value="&lt;b&gt;Search Head&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;SPL Processing&lt;br&gt;Knowledge Objects&lt;br&gt;Saved Searches&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#37474F;fontSize=10;verticalAlign=top;align=center;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1090" width="180" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Splunk Indexer -->
+        <mxCell id="splunk-idx" value="&lt;b&gt;Indexers&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Log Storage&lt;br&gt;Data Buckets&lt;br&gt;Hot/Warm/Cold&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#37474F;fontSize=10;verticalAlign=top;align=center;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="1090" width="180" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Splunk Data -->
+        <mxCell id="splunk-data" value="&lt;b&gt;Log Data&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Security, Application,&lt;br&gt;Infrastructure, Network&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#ECEFF1;strokeColor=#37474F;fontSize=9;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="850" width="130" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ──────────────────────────────────────────── -->
+        <!-- AWS SERVICES (RIGHT SIDE) -->
+        <!-- ──────────────────────────────────────────── -->
+
+        <!-- Secrets Manager -->
+        <mxCell id="secrets-mgr" value="&lt;b&gt;Secrets Manager&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;/mcp/splunk/api-token&lt;br&gt;Rotation: 30 days&lt;br&gt;KMS Encrypted&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;fontSize=9;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="220" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-secrets" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.secrets_manager;" vertex="1" parent="1">
+          <mxGeometry x="1495" y="225" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- KMS -->
+        <mxCell id="kms" value="&lt;b&gt;AWS KMS&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;CMK: mcp-mvp-key&lt;br&gt;FIPS 140-2 L3&lt;br&gt;Encrypts: EBS, Secrets,&lt;br&gt;Logs, Splunk token&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;fontSize=9;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="220" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-kms" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.key_management_service;" vertex="1" parent="1">
+          <mxGeometry x="1745" y="225" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- IAM -->
+        <mxCell id="iam" value="&lt;b&gt;AWS IAM&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;EC2 Instance Profile:&lt;br&gt;  mcp-ec2-role&lt;br&gt;Policies:&lt;br&gt;  secretsmanager:GetSecretValue&lt;br&gt;  bedrock:InvokeModel&lt;br&gt;  cloudwatch:PutMetricData&lt;br&gt;  logs:PutLogEvents&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;fontSize=9;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1850" y="220" width="210" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-iam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="2025" y="225" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Okta -->
+        <mxCell id="okta" value="&lt;b&gt;Okta IdP&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;OIDC / OAuth 2.0&lt;br&gt;Auth Code + PKCE&lt;br&gt;JWT (RS256)&lt;br&gt;MFA: Okta Verify&lt;br&gt;Scopes: mcp:splunk:read&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1A237E;fontSize=9;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="220" width="180" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- CloudWatch -->
+        <mxCell id="cloudwatch" value="&lt;b&gt;CloudWatch&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Log Group: /mcp/splunk-server&lt;br&gt;Custom Metrics:&lt;br&gt;  ToolInvocationCount&lt;br&gt;  ToolLatencyMs&lt;br&gt;  ErrorRate&lt;br&gt;Alarms → SNS&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E7157B;fontSize=9;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="400" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-cw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;" vertex="1" parent="1">
+          <mxGeometry x="1495" y="405" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Bedrock -->
+        <mxCell id="bedrock" value="&lt;b&gt;Amazon Bedrock&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Claude 3.5 Sonnet&lt;br&gt;InvokeModel API&lt;br&gt;Converts user NL query&lt;br&gt;→ MCP tool_call JSON&lt;br&gt;VPC Endpoint access&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#01A88D;fontSize=9;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="400" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-bedrock" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#01A88D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;" vertex="1" parent="1">
+          <mxGeometry x="1745" y="405" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- CloudTrail -->
+        <mxCell id="cloudtrail" value="&lt;b&gt;CloudTrail&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;API Audit&lt;br&gt;All events logged&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E7157B;fontSize=9;shadow=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="1850" y="400" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="icon-trail" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudtrail;" vertex="1" parent="1">
+          <mxGeometry x="1945" y="405" width="30" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Security Group Annotations -->
+        <mxCell id="sg-alb" value="&lt;b&gt;SG: mcp-alb-sg&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Inbound: 443 (0.0.0.0/0)&lt;br&gt;Outbound: 80 → EC2 SG&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#7AA116;fillColor=#F2F6E8;fontSize=9;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="510" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sg-ec2" value="&lt;b&gt;SG: mcp-ec2-sg&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Inbound: 80 from ALB SG only&lt;br&gt;Outbound: 8089 → Splunk SG&lt;br&gt;Outbound: 443 → VPC Endpoints&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#147EBA;fillColor=#E6F2F8;fontSize=9;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="1420" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sg-splunk" value="&lt;b&gt;SG: splunk-sg&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:8px&quot;&gt;Inbound: 8089 from EC2 SG only&lt;br&gt;Outbound: 443 (updates)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#37474F;fillColor=#ECEFF1;fontSize=9;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="1250" width="190" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- DATA FLOW ARROWS (NUMBERED) -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+
+        <!-- ① User → ALB -->
+        <mxCell id="flow-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1565C0;strokeWidth=3;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="475" y="155" as="sourcePoint" /><mxPoint x="475" y="290" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="flow-1-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;①&lt;/b&gt; HTTPS :443&lt;br&gt;TLS 1.3 + Okta JWT&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#1565C0;fillColor=#FFFFFF;strokeColor=#1565C0;rounded=1;" vertex="1" connectable="0" parent="flow-1">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ② ALB → EC2 (Nginx) -->
+        <mxCell id="flow-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1565C0;strokeWidth=3;" edge="1" source="alb" target="nginx" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-2-l" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;②&lt;/b&gt; HTTP :80&lt;br&gt;(internal, SG-restricted)&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#1565C0;fillColor=#FFFFFF;strokeColor=#1565C0;rounded=1;" vertex="1" connectable="0" parent="flow-2">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ③ Chat UI → Agent Backend -->
+        <mxCell id="flow-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#E65100;strokeWidth=2;" edge="1" source="chat-ui" target="agent-backend" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-3-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;&lt;b&gt;③&lt;/b&gt; POST /api/query&lt;br&gt;{user_message, session_id}&lt;br&gt;+ Okta JWT in cookie&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#E65100;fillColor=#FFFFFF;strokeColor=#E65100;rounded=1;" vertex="1" connectable="0" parent="flow-3">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ④ Agent → Bedrock -->
+        <mxCell id="flow-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#01A88D;strokeWidth=2;" edge="1" source="agent-backend" target="bedrock" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="450" y="1250" /><mxPoint x="1250" y="1250" /><mxPoint x="1250" y="460" /><mxPoint x="1600" y="460" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="flow-4-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;&lt;b&gt;④&lt;/b&gt; InvokeModel (IAM SigV4)&lt;br&gt;NL → tool_call generation&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#01A88D;fillColor=#FFFFFF;strokeColor=#01A88D;rounded=1;" vertex="1" connectable="0" parent="flow-4">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ⑤ Agent → MCP Server -->
+        <mxCell id="flow-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#2E7D32;strokeWidth=3;" edge="1" source="agent-backend" target="mcp-server" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="600" y="1140" /><mxPoint x="600" y="930" /><mxPoint x="700" y="930" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="flow-5-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;&lt;b&gt;⑤&lt;/b&gt; MCP tool_call (JSON-RPC)&lt;br&gt;localhost:3001/mcp&lt;br&gt;{method: &quot;tools/call&quot;,&lt;br&gt; params: {name: &quot;splunk_search&quot;, ...}}&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#2E7D32;fillColor=#FFFFFF;strokeColor=#2E7D32;rounded=1;" vertex="1" connectable="0" parent="flow-5">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ⑥ MCP Server → Secrets Manager -->
+        <mxCell id="flow-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#DD344C;strokeWidth=2;dashed=1;" edge="1" source="mcp-server" target="secrets-mgr" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="850" y="790" /><mxPoint x="850" y="265" /><mxPoint x="1350" y="265" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="flow-6-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;&lt;b&gt;⑥&lt;/b&gt; GetSecretValue&lt;br&gt;(IAM Instance Profile)&lt;br&gt;cached 5 min&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#DD344C;fillColor=#FFFFFF;strokeColor=#DD344C;rounded=1;" vertex="1" connectable="0" parent="flow-6">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ⑦ MCP Server → Splunk REST API -->
+        <mxCell id="flow-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#37474F;strokeWidth=3;" edge="1" source="mcp-server" target="splunk-rest" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-7-l" value="&lt;font style=&quot;font-size:9px&quot;&gt;&lt;b&gt;⑦&lt;/b&gt; HTTPS :8089&lt;br&gt;Authorization: Bearer &lt;token&gt;&lt;br&gt;POST /services/search/jobs&lt;br&gt;(SG: EC2→Splunk only)&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#37474F;fillColor=#FFFFFF;strokeColor=#37474F;rounded=1;" vertex="1" connectable="0" parent="flow-7">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ⑧ Response back -->
+        <mxCell id="flow-8" value="&lt;font style=&quot;font-size:9px&quot;&gt;&lt;b&gt;⑧&lt;/b&gt; tool_result JSON&lt;br&gt;(reverse path: Splunk → MCP → Agent → UI → User)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#1565C0;fillColor=#E3F2FD;fontSize=9;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="1420" width="310" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Okta Auth Flow (dashed) -->
+        <mxCell id="flow-okta" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#1A237E;strokeWidth=1;dashed=1;" edge="1" source="chat-ui" target="okta" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="260" y="900" /><mxPoint x="260" y="200" /><mxPoint x="1190" y="200" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="flow-okta-l" value="&lt;font style=&quot;font-size:8px&quot;&gt;Login: OIDC&lt;br&gt;Auth Code + PKCE&lt;br&gt;+ MFA&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#1A237E;" vertex="1" connectable="0" parent="flow-okta">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- LEGEND -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BDBDBD;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1580" width="2170" height="230" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-title" value="&lt;b&gt;Legend — Request Flow &amp; Security&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="1590" width="240" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Flow Steps -->
+        <mxCell id="leg-flow" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Request Flow:&lt;/b&gt;&lt;br&gt;&lt;b&gt;①&lt;/b&gt; User browser → ALB (HTTPS/TLS 1.3, Okta JWT in header)&lt;br&gt;&lt;b&gt;②&lt;/b&gt; ALB → EC2 Nginx (HTTP :80, internal only, SG-restricted)&lt;br&gt;&lt;b&gt;③&lt;/b&gt; Chat UI → Agent Backend (POST /api/query + session JWT)&lt;br&gt;&lt;b&gt;④&lt;/b&gt; Agent → Bedrock (IAM SigV4 via VPC Endpoint, NL → tool_call)&lt;br&gt;&lt;b&gt;⑤&lt;/b&gt; Agent → MCP Server (JSON-RPC localhost:3001, tools/call)&lt;br&gt;&lt;b&gt;⑥&lt;/b&gt; MCP Server → Secrets Manager (IAM Instance Profile, cached)&lt;br&gt;&lt;b&gt;⑦&lt;/b&gt; MCP Server → Splunk REST API (HTTPS :8089, Bearer token, SG-restricted)&lt;br&gt;&lt;b&gt;⑧&lt;/b&gt; Response: Splunk → MCP → Agent → Chat UI → User (reverse path)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="140" y="1620" width="560" height="165" as="geometry" />
+        </mxCell>
+
+        <!-- Security Details -->
+        <mxCell id="leg-security" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Security Controls:&lt;/b&gt;&lt;br&gt;&lt;b&gt;Authentication:&lt;/b&gt; Okta OIDC (Auth Code + PKCE + MFA) → JWT (RS256, 15min TTL)&lt;br&gt;&lt;b&gt;Authorization:&lt;/b&gt; JWT scopes (mcp:splunk:read) validated at Agent Backend&lt;br&gt;&lt;b&gt;IAM:&lt;/b&gt; EC2 Instance Profile (least-privilege: Secrets, Bedrock, CW only)&lt;br&gt;&lt;b&gt;Encryption Transit:&lt;/b&gt; TLS 1.3 (ALB↔User), HTTPS (EC2↔Splunk :8089)&lt;br&gt;&lt;b&gt;Encryption Rest:&lt;/b&gt; KMS CMK (EBS, Secrets Manager, CloudWatch Logs)&lt;br&gt;&lt;b&gt;Network:&lt;/b&gt; Private subnet (no public IP on EC2), SG references (not CIDR)&lt;br&gt;&lt;b&gt;Secrets:&lt;/b&gt; Splunk token in Secrets Manager, 30-day rotation, never in env vars&lt;br&gt;&lt;b&gt;Audit:&lt;/b&gt; CloudTrail (all API calls) + CloudWatch Logs (app logs, 90-day retention)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="750" y="1620" width="560" height="175" as="geometry" />
+        </mxCell>
+
+        <!-- Color Legend -->
+        <mxCell id="leg-colors" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Color Key:&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#1565C0&quot;&gt;━━ Blue: User/HTTP data flow&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#2E7D32&quot;&gt;━━ Green: MCP protocol (JSON-RPC)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#E65100&quot;&gt;━━ Orange: Internal API calls&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#01A88D&quot;&gt;━━ Teal: Bedrock LLM invocation&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#DD344C&quot;&gt;- - Red dashed: Secrets/security&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#37474F&quot;&gt;━━ Dark: Splunk vendor API&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#1A237E&quot;&gt;- - Navy dashed: Auth (Okta OIDC)&lt;/font&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="1620" width="240" height="155" as="geometry" />
+        </mxCell>
+
+        <!-- Architecture Note -->
+        <mxCell id="leg-note" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;MVP Scope:&lt;/b&gt;&lt;br&gt;• Single EC2 (Chat UI + MCP Server)&lt;br&gt;• Single Splunk MCP Server only&lt;br&gt;• No AgentCore, no Cognito&lt;br&gt;• Okta IdP + AWS IAM only&lt;br&gt;• Network (TGW/VPN) excluded&lt;br&gt;• All in same GovCloud account&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1680" y="1620" width="240" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- User Icon (top) -->
+        <mxCell id="user-icon" value="&lt;b&gt;SRE / Engineer&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Browser (HTTPS)&lt;/font&gt;" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=1;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="400" y="85" width="150" height="70" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
